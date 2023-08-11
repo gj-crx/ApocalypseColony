@@ -21,7 +21,6 @@ public class PrefabManager : MonoBehaviour
     [Inject]
     public void Install()
     {
-        Debug.Log("truly a nigger");
         GamePrefab = gamePrefab;
         PlayerNetObjectPrefab = playerNetObjectPrefab;
         UnitRepresentationPrefabs = unitRepresentationPrefabs;

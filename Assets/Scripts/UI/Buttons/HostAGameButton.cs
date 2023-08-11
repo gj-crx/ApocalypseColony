@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 public class HostAGameButton : MonoBehaviour
 {
-
+    [SerializeField] private LocalServerStartingSystem serverStartingSystem;
     void Start()
     {
         GetComponent<Button>().onClick.AddListener(OnButtonClicked);
@@ -14,6 +14,6 @@ public class HostAGameButton : MonoBehaviour
 
     private void OnButtonClicked()
     {
-
+        serverStartingSystem.HostNewGameFromLocalServer();
     }
 }

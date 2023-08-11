@@ -6,9 +6,8 @@ using System.Threading.Tasks;
 
 using Zenject;
 using Networking;
+using Systems;
 
-namespace Systems
-{
     /// <summary>
     /// Entry point to run all games on this server
     /// </summary>
@@ -60,4 +59,3 @@ namespace Systems
             Player.LocalPlayerObject = GameObject.FindGameObjectWithTag("Player").GetComponent<Player>();
         }
     }
-}
