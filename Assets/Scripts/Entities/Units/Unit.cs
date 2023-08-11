@@ -65,9 +65,9 @@ namespace Units
             set { currentOrder = value; }
         }
 
-        public object GetDataToTransfer() => new UnitSeriazableData(UnitID, UnitTypeID, Position, CurrentHP);
+        public IEntityData GetDataToTransfer() => new UnitSeriazableData(UnitID, UnitTypeID, Position, CurrentHP);
 
-        public void ApplyTransferedData(object transferedData) => ((UnitSeriazableData)transferedData).ApplyData(this);
+        public void ApplyTransferedData(IEntityData transferedData) => ((UnitSeriazableData)transferedData).ApplyData(this);
 
         public ClientRpcParams GetClientRpcParams() => CurrentGame.ConnectedClientsParams;
 
@@ -76,7 +76,7 @@ namespace Units
         /// Contains all the information that has to be transfered to clients
         /// </summary>
         [System.Serializable]
-        public struct UnitSeriazableData : INetworkSerializable
+        public struct UnitSeriazableData : IEntityData, INetworkSerializable
         {
             public int UnitID;
             public short UnitTypeID;

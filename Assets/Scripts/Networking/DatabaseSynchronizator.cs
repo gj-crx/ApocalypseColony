@@ -47,7 +47,7 @@ namespace Networking
         }
 
         [ClientRpc]
-        private void SyncObjectClientRpc(int objectToSyncID, IDataBase.EntityTypeID objectToSyncTypeID, object dataToSync, ClientRpcParams clientRpcParams)
+        private void SyncObjectClientRpc(int objectToSyncID, IDataBase.EntityTypeID objectToSyncTypeID, IEntityData dataToSync, ClientRpcParams clientRpcParams)
         {
             (ClientDataBase.Singleton.GetEntity(objectToSyncID, ClientDataBase.Singleton.GetTypeOutOfID(objectToSyncTypeID)) as ISynchronizableObject).ApplyTransferedData(dataToSync);
             Debug.LogError("actually got it lol " + objectToSyncTypeID);

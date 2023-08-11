@@ -6,7 +6,7 @@ using Unity.Netcode;
 
 public interface ISynchronizableObject
 {
-    object GetDataToTransfer();
-    void ApplyTransferedData(object transferedData);
+    IEntityData GetDataToTransfer();
+    void ApplyTransferedData(IEntityData transferedData);
     ClientRpcParams GetClientRpcParams();
 }
