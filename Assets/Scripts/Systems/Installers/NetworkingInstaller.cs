@@ -9,12 +9,14 @@ namespace Systems.Installers
 {
     public class NetworkingInstaller : MonoInstaller
     {
-        [SerializeField] private LocalNetworkManager localNetworkManager;
         [SerializeField] private DatabaseSynchronizator databaseSynchronizator;
+        [SerializeField] private LocalServerStartingSystem startingSystem;
         public override void InstallBindings()
         {
-            Container.Bind<LocalNetworkManager>().FromInstance(localNetworkManager).AsSingle().NonLazy();
             Container.Bind<DatabaseSynchronizator>().FromInstance(databaseSynchronizator).AsSingle().NonLazy();
+            Container.Bind<LocalServerStartingSystem>().FromInstance(startingSystem).AsSingle().NonLazy();
+
+            Container.BindFactory<Game, GameFactory>().FromComponentInNewPrefab(PrefabManager.GetGamePrefab());
         }
     }
 }

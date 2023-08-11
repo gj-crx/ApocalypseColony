@@ -12,27 +12,23 @@ namespace Systems
     /// <summary>
     /// Entry point to run all games on this server
     /// </summary>
-    public class ServerStartingSystem : GameSystem, ISystem
+    public class LocalServerStartingSystem : NetworkBehaviour
     {
         [Inject] private DatabaseSynchronizator dataBaseSynchronizatorSingle;
-        [Inject] private LocalNetworkManager localNetworkManagerSingle;
         [Inject] private GameFactory gameFactorySingle;
 
 
         private List<Game> GamesOfThisServer;
 
-        private ServerStartingSystem()
+
+
+        public void HostNewGameFromLocalServer()
         {
-            localNetworkManagerSingle.OnQuit += OnApplicationQuit;
+            NetworkManager.StartHost();
+            StartCoroutine(StartNewGameDelayedAction());
         }
 
-        public void HostNewGame()
-        {
-            localNetworkManagerSingle.NetworkManager.StartHost();
-            localNetworkManagerSingle.StartCoroutine(StartNewGame());
-        }
-
-        public IEnumerator StartNewGame()
+        public IEnumerator StartNewGameDelayedAction()
         {
             if (gameFactorySingle == null) gameFactorySingle = new GameFactory();
 

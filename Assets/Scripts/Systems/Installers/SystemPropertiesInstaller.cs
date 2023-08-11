@@ -13,8 +13,6 @@ namespace Systems.Installers
 
         public override void InstallBindings()
         {
-            Container.Bind<ServerStartingSystem>().AsSingle();
-
             Container.Bind<IPathfindingMap>().To<PathfindingMap>().AsTransient();
             Container.Bind<IPathfinding>().To<NormalPathfinding>().AsTransient();
             Container.Bind<IDataBase>().To<GameDataBase>().AsTransient();
@@ -31,8 +29,6 @@ namespace Systems.Installers
             Container.Bind<FactionOperatorSystem>().AsTransient();
             Container.Bind<PathfindingMap>().AsTransient();
             Container.Bind<NormalPathfinding>().AsTransient();
-
-            Container.BindFactory<Game, GameFactory>().FromComponentInNewPrefab(PrefabManager.GetGamePrefab());
         }
     }
 }
