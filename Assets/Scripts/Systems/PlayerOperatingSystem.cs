@@ -11,12 +11,16 @@ namespace Systems
 {
     public class PlayerOperatingSystem : GameSystem, ISystem
     {
-        [Inject] private FactionOperatorSystem factionOperator;
+      
+        private FactionOperatorSystem factionOperator;
+        [Inject]
+        private string naruto;
 
         public PlayerOperatingSystem()
         {
-
+            Debug.Log(naruto);
         }
+
 
         public void AddPlayer(Player playerToAdd, Game game)
         {
@@ -31,6 +35,7 @@ namespace Systems
                 TargetClientIds = new ulong[] { playerToAdd.PlayerID },
             };
 
+            Debug.Log(factionOperator);
             playerToAdd.PlayerGameplayObjectID = factionOperator.SpawnNewFaction(UnitTypesStorage.GetUnitByClass(Unit.UnitClassification.Townhall).UnitTypeID,
                 new Vector3(Random.Range(-50, 50), 1, Random.Range(-50, 50)), game, playerToAdd).FactionID;
         }

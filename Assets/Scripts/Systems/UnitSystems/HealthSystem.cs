@@ -3,14 +3,16 @@ using System.Collections.Generic;
 using UnityEngine;
 using Units;
 using System.Threading.Tasks;
+using Zenject;
 
 namespace Systems
 {
     /// <summary>
     /// Applies regeneration for every unit
     /// </summary>
-    public class HealthSystem : GameSystem
+    public class HealthSystem : GameSystem, ISystem
     {
+
         public HealthSystem()
         {
             OnUnitOperated += OperateUnitHealth;

@@ -4,17 +4,15 @@ using UnityEngine;
 
 using Units;
 using System.Threading.Tasks;
+using Zenject;
 
 namespace Systems
 {
     public class MovementSystem : GameSystem, ISystem
     {
-
-        private int testnigger = 1;
         public MovementSystem()
         {
             OnUnitOperated += OperateUnitMovement;
-            testnigger = Random.Range(-100, 100);
         }
 
         public void OperateUnitMovement(Unit operatedUnit)

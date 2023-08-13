@@ -15,16 +15,20 @@ namespace Systems
         public delegate void UnitOperation(Unit operetaedUnit);
         public UnitOperation OnUnitOperated;
 
-        [Inject] private GameDataBase dataBase;
+        [Inject] internal GameDataBase dataBase;
 
 
         protected float timeIntervalInSeconds = 1.0f;
         private bool isActive = true;
 
-        public string GetSystemName() => new string("Unnamed system");
+
+        public GameSystem()
+        {
+
+        }
+
         public async void SystemIterationCycle(int customTimeInterval = -1)
         {
-            Debug.Log("system started");
             if (customTimeInterval != -1) timeIntervalInSeconds = customTimeInterval / 1000f;
             else customTimeInterval = (int)(timeIntervalInSeconds * 1000);
 

@@ -21,20 +21,24 @@ namespace Systems
             gameToInstall.DataBase = new GameDataBase();
 
             //Single purpose systems
-            AddNewSystem(new MovementSystem().GetType(), gameToInstall);
-            AddNewSystem(new HealthSystem().GetType(), gameToInstall);
-            AddNewSystem(new BuildingOperationSystem().GetType(), gameToInstall);
-            AddNewSystem(new UnitModifyingSystem().GetType(), gameToInstall);
-            AddNewSystem(new UnitAISystem().GetType(), gameToInstall);
-            AddNewSystem(new FactionOperatorSystem().GetType(), gameToInstall);
-            AddNewSystem(new PlayerOperatingSystem().GetType(), gameToInstall);
+            AddNewSystem(new MovementSystem(), gameToInstall);
+            AddNewSystem(new HealthSystem(), gameToInstall);
+            AddNewSystem(new BuildingOperationSystem(), gameToInstall);
+            AddNewSystem(new UnitModifyingSystem(), gameToInstall);
+            AddNewSystem(new UnitAISystem(), gameToInstall);
+            AddNewSystem(new FactionOperatorSystem(), gameToInstall);
+            AddNewSystem(new PlayerOperatingSystem(), gameToInstall);
+            AddNewSystem(new TrainingSystem(), gameToInstall);
 
             foreach (var system in  gameToInstall.GameSystems) Task.Run(() => system.SystemIterationCycle());
         }
 
-        private static void AddNewSystem(Type systemType, Game gameToAddInto)
+        private static void AddNewSystem(object newSystemObject, Game gameToAddInto)
         {
-            if (systemsToDeactivate.Contains(systemType.Name) == false) gameToAddInto.GameSystems.Add((ISystem)systemType);
+            if (systemsToDeactivate.Contains(newSystemObject.GetType().Name) == false)
+            {
+                gameToAddInto.GameSystems.Add(newSystemObject as ISystem);
+            }
         }
     }
 }

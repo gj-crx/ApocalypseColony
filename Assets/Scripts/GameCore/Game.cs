@@ -27,7 +27,6 @@ public class Game : MonoBehaviour
     [Inject]
     public void StartGameSystems()
     {
-        Debug.Log("inject");
 
     }
 

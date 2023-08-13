@@ -260,7 +260,6 @@ GameObject:
   - component: {fileID: 388358056}
   - component: {fileID: 388358055}
   - component: {fileID: 388358057}
-  - component: {fileID: 388358058}
   m_Layer: 0
   m_Name: NetworkManager
   m_TagString: Untagged
@@ -350,19 +349,6 @@ MonoBehaviour:
     PacketDelayMS: 0
     PacketJitterMS: 0
     PacketDropRate: 0
---- !u!114 &388358058
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 388358054}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: be473d45278590b4184b468c2afbb4ba, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  unitTypes: []
 --- !u!1 &620479610
 GameObject:
   m_ObjectHideFlags: 0
@@ -474,7 +460,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 629061601}
-  - component: {fileID: 629061603}
+  - component: {fileID: 629061605}
   - component: {fileID: 629061604}
   - component: {fileID: 629061602}
   m_Layer: 0
@@ -515,21 +501,6 @@ MonoBehaviour:
   AlwaysReplicateAsRoot: 0
   DontDestroyWithOwner: 0
   AutoObjectParentSync: 1
---- !u!114 &629061603
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 629061600}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e5d710f998851604f8472c6e9363077d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  GamesOfThisServer: []
-  synchronizator: {fileID: 629061604}
-  networkManager: {fileID: 388358055}
 --- !u!114 &629061604
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -543,6 +514,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   UnitSyncInterval: 400
+--- !u!114 &629061605
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 629061600}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e5d710f998851604f8472c6e9363077d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &680451802
 GameObject:
   m_ObjectHideFlags: 0
@@ -555,8 +538,9 @@ GameObject:
   - component: {fileID: 680451806}
   - component: {fileID: 680451805}
   - component: {fileID: 680451804}
+  - component: {fileID: 680451807}
   m_Layer: 5
-  m_Name: Button (Legacy)
+  m_Name: ButtonTestHost
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -627,7 +611,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 629061603}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: Networking.ServerGamesController, Assembly-CSharp
         m_MethodName: HostNewGame
         m_Mode: 1
@@ -677,6 +661,19 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 680451802}
   m_CullTransparentMesh: 1
+--- !u!114 &680451807
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 680451802}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c6342a0854e58164e85ce363f8824465, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  serverStartingSystem: {fileID: 629061605}
 --- !u!1 &705507993
 GameObject:
   m_ObjectHideFlags: 0
@@ -1063,6 +1060,52 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1200850591
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1200850592}
+  - component: {fileID: 1200850593}
+  m_Layer: 0
+  m_Name: NetworkingInstaller
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1200850592
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1200850591}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1980079423}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1200850593
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1200850591}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 51d8112bcfde4a04187bd6a8fd37e68c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  databaseSynchronizator: {fileID: 629061604}
+  startingSystem: {fileID: 629061605}
 --- !u!1 &1387006177
 GameObject:
   m_ObjectHideFlags: 0
@@ -1155,6 +1198,7 @@ GameObject:
   - component: {fileID: 1546660316}
   - component: {fileID: 1546660318}
   - component: {fileID: 1546660319}
+  - component: {fileID: 1546660320}
   m_Layer: 0
   m_Name: StaticDataStorage
   m_TagString: Untagged
@@ -1247,14 +1291,15 @@ MonoBehaviour:
                         AttackInterval: 1.5
                         MaxHP: 100
                         RegenerationRate: 1
-                        TrainingTime: 10
-                        bodyType: 0
                         AbleToMove: 1
                         AbleToAttack: 1
                         AbleToTrainUnits: 0
+                        TrainingTime: 10
+                        bodyType: 0
                     ComponentTraining:
                       TrainingSpeed: 1
                       AllowedUnitIDsToTrain: 
+                      TrainingTimer: 0
                       unitSpawningPositionOffset: {x: 1, y: 0, z: 1}
                     MoveSpeed: 3
                     Damage: 0
@@ -1262,15 +1307,16 @@ MonoBehaviour:
                     AttackInterval: 1.5
                     MaxHP: 100
                     RegenerationRate: 1
-                    TrainingTime: 10
-                    ResourceCostToTrain: []
-                    bodyType: 0
                     AbleToMove: 1
                     AbleToAttack: 1
                     AbleToTrainUnits: 0
+                    TrainingTime: 10
+                    ResourceCostToTrain: []
+                    bodyType: 0
                 ComponentTraining:
                   TrainingSpeed: 1
                   AllowedUnitIDsToTrain: 
+                  TrainingTimer: 0
                   unitSpawningPositionOffset: {x: 1, y: 0, z: 1}
                 MoveSpeed: 3
                 Damage: 0
@@ -1278,15 +1324,16 @@ MonoBehaviour:
                 AttackInterval: 1.5
                 MaxHP: 100
                 RegenerationRate: 1
-                TrainingTime: 10
-                ResourceCostToTrain: []
-                bodyType: 0
                 AbleToMove: 1
                 AbleToAttack: 1
                 AbleToTrainUnits: 0
+                TrainingTime: 10
+                ResourceCostToTrain: []
+                bodyType: 0
             ComponentTraining:
               TrainingSpeed: 1
               AllowedUnitIDsToTrain: 
+              TrainingTimer: 0
               unitSpawningPositionOffset: {x: 1, y: 0, z: 1}
             MoveSpeed: 3
             Damage: 0
@@ -1294,15 +1341,16 @@ MonoBehaviour:
             AttackInterval: 1.5
             MaxHP: 100
             RegenerationRate: 1
-            TrainingTime: 10
-            ResourceCostToTrain: []
-            bodyType: 0
             AbleToMove: 1
             AbleToAttack: 1
             AbleToTrainUnits: 0
+            TrainingTime: 10
+            ResourceCostToTrain: []
+            bodyType: 0
         ComponentTraining:
           TrainingSpeed: 1
           AllowedUnitIDsToTrain: 
+          TrainingTimer: 0
           unitSpawningPositionOffset: {x: 1, y: 0, z: 1}
         MoveSpeed: 3
         Damage: 0
@@ -1310,15 +1358,16 @@ MonoBehaviour:
         AttackInterval: 1.5
         MaxHP: 100
         RegenerationRate: 1
-        TrainingTime: 10
-        ResourceCostToTrain: []
-        bodyType: 0
         AbleToMove: 1
         AbleToAttack: 1
         AbleToTrainUnits: 0
+        TrainingTime: 10
+        ResourceCostToTrain: []
+        bodyType: 0
     ComponentTraining:
       TrainingSpeed: 1
       AllowedUnitIDsToTrain: 
+      TrainingTimer: 0
       unitSpawningPositionOffset: {x: 1, y: 0, z: 1}
     MoveSpeed: 15
     Damage: 25
@@ -1326,6 +1375,9 @@ MonoBehaviour:
     AttackInterval: 1.5
     MaxHP: 100
     RegenerationRate: 2
+    AbleToMove: 1
+    AbleToAttack: 1
+    AbleToTrainUnits: 0
     TrainingTime: 2
     ResourceCostToTrain:
     - 0
@@ -1334,9 +1386,6 @@ MonoBehaviour:
     - 0
     - 0
     bodyType: 0
-    AbleToMove: 1
-    AbleToAttack: 1
-    AbleToTrainUnits: 0
   - UnitName: Town hall
     Class: 101
     Position: {x: 0, y: 0, z: 0}
@@ -1409,14 +1458,15 @@ MonoBehaviour:
                         AttackInterval: 1.5
                         MaxHP: 100
                         RegenerationRate: 1
-                        TrainingTime: 10
-                        bodyType: 0
                         AbleToMove: 1
                         AbleToAttack: 1
                         AbleToTrainUnits: 0
+                        TrainingTime: 10
+                        bodyType: 0
                     ComponentTraining:
                       TrainingSpeed: 1
                       AllowedUnitIDsToTrain: 
+                      TrainingTimer: 0
                       unitSpawningPositionOffset: {x: 1, y: 0, z: 1}
                     MoveSpeed: 3
                     Damage: 0
@@ -1424,15 +1474,16 @@ MonoBehaviour:
                     AttackInterval: 1.5
                     MaxHP: 100
                     RegenerationRate: 1
-                    TrainingTime: 10
-                    ResourceCostToTrain: []
-                    bodyType: 0
                     AbleToMove: 1
                     AbleToAttack: 1
                     AbleToTrainUnits: 0
+                    TrainingTime: 10
+                    ResourceCostToTrain: []
+                    bodyType: 0
                 ComponentTraining:
                   TrainingSpeed: 1
                   AllowedUnitIDsToTrain: 
+                  TrainingTimer: 0
                   unitSpawningPositionOffset: {x: 1, y: 0, z: 1}
                 MoveSpeed: 3
                 Damage: 0
@@ -1440,15 +1491,16 @@ MonoBehaviour:
                 AttackInterval: 1.5
                 MaxHP: 100
                 RegenerationRate: 1
-                TrainingTime: 10
-                ResourceCostToTrain: []
-                bodyType: 0
                 AbleToMove: 1
                 AbleToAttack: 1
                 AbleToTrainUnits: 0
+                TrainingTime: 10
+                ResourceCostToTrain: []
+                bodyType: 0
             ComponentTraining:
               TrainingSpeed: 1
               AllowedUnitIDsToTrain: 
+              TrainingTimer: 0
               unitSpawningPositionOffset: {x: 1, y: 0, z: 1}
             MoveSpeed: 3
             Damage: 0
@@ -1456,15 +1508,16 @@ MonoBehaviour:
             AttackInterval: 1.5
             MaxHP: 100
             RegenerationRate: 1
-            TrainingTime: 10
-            ResourceCostToTrain: []
-            bodyType: 0
             AbleToMove: 1
             AbleToAttack: 1
             AbleToTrainUnits: 0
+            TrainingTime: 10
+            ResourceCostToTrain: []
+            bodyType: 0
         ComponentTraining:
           TrainingSpeed: 1
           AllowedUnitIDsToTrain: 
+          TrainingTimer: 0
           unitSpawningPositionOffset: {x: 1, y: 0, z: 1}
         MoveSpeed: 3
         Damage: 0
@@ -1472,15 +1525,16 @@ MonoBehaviour:
         AttackInterval: 1.5
         MaxHP: 100
         RegenerationRate: 1
-        TrainingTime: 10
-        ResourceCostToTrain: []
-        bodyType: 0
         AbleToMove: 1
         AbleToAttack: 1
         AbleToTrainUnits: 0
+        TrainingTime: 10
+        ResourceCostToTrain: []
+        bodyType: 0
     ComponentTraining:
       TrainingSpeed: 1
       AllowedUnitIDsToTrain: 0000
+      TrainingTimer: 0
       unitSpawningPositionOffset: {x: 1, y: 0, z: 1}
     MoveSpeed: 0
     Damage: 0
@@ -1488,6 +1542,9 @@ MonoBehaviour:
     AttackInterval: 0
     MaxHP: 250
     RegenerationRate: 2
+    AbleToMove: 0
+    AbleToAttack: 0
+    AbleToTrainUnits: 1
     TrainingTime: 25
     ResourceCostToTrain:
     - 0
@@ -1496,9 +1553,6 @@ MonoBehaviour:
     - 0
     - 0
     bodyType: 0
-    AbleToMove: 0
-    AbleToAttack: 0
-    AbleToTrainUnits: 1
 --- !u!4 &1546660317
 Transform:
   m_ObjectHideFlags: 0
@@ -1545,6 +1599,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gamesCategory: {fileID: 1860690732}
+--- !u!114 &1546660320
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1546660315}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b4102319c6f933844b713ac19d8acb47, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  systemsToDeactivateInNewGame: []
 --- !u!1 &1645258317
 GameObject:
   m_ObjectHideFlags: 0
@@ -1558,7 +1625,7 @@ GameObject:
   - component: {fileID: 1645258320}
   - component: {fileID: 1645258319}
   m_Layer: 5
-  m_Name: Button (Legacy) (1)
+  m_Name: ButtonTestConnect
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1828,6 +1895,7 @@ MonoBehaviour:
   _monoInstallers:
   - {fileID: 257367377}
   - {fileID: 1121463507}
+  - {fileID: 1200850593}
   _installerPrefabs: []
   _autoRun: 1
   OnPreInstall:
@@ -1859,6 +1927,7 @@ Transform:
   m_Children:
   - {fileID: 1121463508}
   - {fileID: 257367376}
+  - {fileID: 1200850592}
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

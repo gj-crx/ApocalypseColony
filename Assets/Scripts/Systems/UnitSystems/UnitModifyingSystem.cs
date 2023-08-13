@@ -10,7 +10,11 @@ namespace Systems
 {
     public class UnitModifyingSystem : GameSystem, ISystem
     {
-        [Inject] private IDataBase dataBase;
+
+        public UnitModifyingSystem()
+        {
+
+        }
 
         public Unit SpawnNewUnit(short referenceUnitTypeID, Vector3 position, Game associatedGame)
         {

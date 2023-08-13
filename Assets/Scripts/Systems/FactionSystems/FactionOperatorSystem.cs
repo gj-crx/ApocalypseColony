@@ -11,8 +11,12 @@ namespace Systems
 {
     public class FactionOperatorSystem : GameSystem, ISystem
     {
-        [Inject]
-        private UnitModifyingSystem unitModifying;
+        [Inject] private UnitModifyingSystem unitModifying;
+
+        public FactionOperatorSystem()
+        {
+
+        }
 
         public Faction SpawnNewFaction(short townhallUnitTypeID, Vector3 townhallPosition, Game gameToCreateIn, Player controllingPlayer = null)
         {

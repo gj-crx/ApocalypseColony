@@ -16,8 +16,7 @@ namespace Systems
     /// </summary>
     public class UnitAISystem : GameSystem, ISystem
     {
-        [Inject]
-        private IPathfinding pathfindingSubSystem;
+        [Inject] private IPathfinding pathfindingSubSystem;
         private List<Unit> unitsToOperate;
         private Queue<Tuple<Unit, Unit.Order>> queuedOrders = new Queue<Tuple<Unit, Unit.Order>>();
         

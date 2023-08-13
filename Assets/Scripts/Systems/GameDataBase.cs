@@ -5,6 +5,7 @@ using UnityEngine;
 using Units;
 using Factions;
 using System;
+using Zenject;
 
 [System.Serializable]
 public class GameDataBase : IDataBase
@@ -14,6 +15,11 @@ public class GameDataBase : IDataBase
     public List<Faction> Factions = new List<Faction>();
 
     public List<ISynchronizableObject> synchronizableObjects;
+
+    public GameDataBase()
+    {
+
+    }
 
     public void AddEntityToDataBase(object entity)
     {

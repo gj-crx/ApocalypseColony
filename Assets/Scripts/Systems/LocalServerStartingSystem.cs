@@ -19,7 +19,11 @@ using Systems;
 
         private List<Game> GamesOfThisServer;
 
-
+    [Inject]
+    private void Install()
+    {
+        GamesOfThisServer = new List<Game>();
+    }
 
         public void HostNewGameFromLocalServer()
         {
