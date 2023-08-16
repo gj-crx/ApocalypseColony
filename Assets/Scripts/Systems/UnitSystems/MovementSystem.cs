@@ -10,8 +10,9 @@ namespace Systems
 {
     public class MovementSystem : GameSystem, ISystem
     {
-        public MovementSystem()
+        public MovementSystem(GameDataBase dataBase)
         {
+            this.dataBase =  dataBase;
             OnUnitOperated += OperateUnitMovement;
         }
 

@@ -16,7 +16,8 @@ namespace Systems.Installers
             Container.Bind<DatabaseSynchronizator>().FromInstance(databaseSynchronizator).AsSingle().NonLazy();
             Container.Bind<LocalServerStartingSystem>().FromInstance(startingSystem).AsSingle().NonLazy();
 
-            Container.BindFactory<Game, GameFactory>().FromComponentInNewPrefab(PrefabManager.GetGamePrefab());
+            Container.BindFactory<GameSystemsManager, SystemsManagerFactory>().FromComponentInNewPrefab(PrefabManager.GetGamePrefab());
+
         }
     }
 }

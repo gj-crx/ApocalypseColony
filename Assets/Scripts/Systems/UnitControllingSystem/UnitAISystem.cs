@@ -16,12 +16,13 @@ namespace Systems
     /// </summary>
     public class UnitAISystem : GameSystem, ISystem
     {
-        [Inject] private IPathfinding pathfindingSubSystem;
+        private IPathfinding pathfindingSubSystem;
         private List<Unit> unitsToOperate;
         private Queue<Tuple<Unit, Unit.Order>> queuedOrders = new Queue<Tuple<Unit, Unit.Order>>();
         
-        public UnitAISystem()
+        public UnitAISystem(GameDataBase dataBase)
         {
+            dataBase = dataBase;
             OnUnitOperated += OperateOrderQueue;
         }
 

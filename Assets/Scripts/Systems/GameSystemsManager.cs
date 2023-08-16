@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using UnityEngine;
 
+using Zenject;
+
 namespace Systems
 {
     public class GameSystemsManager : MonoBehaviour
@@ -13,22 +15,26 @@ namespace Systems
 
         private static List<string> systemsToDeactivate = new List<string>();
 
-        private void Awake() => systemsToDeactivate = systemsToDeactivateInNewGame;
-
-        public static void InstallGameSystems(Game gameToInstall)
+        [Inject]
+        public void InstallGameSystems(MovementSystem movement, HealthSystem health, BuildingOperatingSystem buildingOperating, UnitModifyingSystem unitModifying, UnitAISystem unitAI,
+            FactionOperatingSystem factionOperating, PlayerOperatingSystem playerOperating, TrainingSystem training)
         {
+            systemsToDeactivate = systemsToDeactivateInNewGame;
+
+            transform.SetParent(HierarchyCategoriesStorage.GamesCategory);
+            Game gameToInstall = GetComponent<Game>();
             //database
             gameToInstall.DataBase = new GameDataBase();
 
             //Single purpose systems
-            AddNewSystem(new MovementSystem(), gameToInstall);
-            AddNewSystem(new HealthSystem(), gameToInstall);
-            AddNewSystem(new BuildingOperationSystem(), gameToInstall);
-            AddNewSystem(new UnitModifyingSystem(), gameToInstall);
-            AddNewSystem(new UnitAISystem(), gameToInstall);
-            AddNewSystem(new FactionOperatorSystem(), gameToInstall);
-            AddNewSystem(new PlayerOperatingSystem(), gameToInstall);
-            AddNewSystem(new TrainingSystem(), gameToInstall);
+            AddNewSystem(movement, gameToInstall);
+            AddNewSystem(health, gameToInstall);
+            AddNewSystem(buildingOperating, gameToInstall);
+            AddNewSystem(unitModifying, gameToInstall);
+            AddNewSystem(unitAI, gameToInstall);
+            AddNewSystem(factionOperating, gameToInstall);
+            AddNewSystem(playerOperating, gameToInstall);
+            AddNewSystem(training, gameToInstall);
 
             foreach (var system in  gameToInstall.GameSystems) Task.Run(() => system.SystemIterationCycle());
         }

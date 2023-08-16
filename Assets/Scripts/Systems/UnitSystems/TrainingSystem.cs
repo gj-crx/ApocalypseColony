@@ -14,8 +14,9 @@ namespace Systems
         float timeStep = 1;
 
 
-        public TrainingSystem()
+        public TrainingSystem(GameDataBase dataBase)
         {
+            this.dataBase = dataBase;
             OnUnitOperated += TrainingQueueIteration;
         }
 

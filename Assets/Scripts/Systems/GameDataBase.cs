@@ -14,7 +14,7 @@ public class GameDataBase : IDataBase
 
     public List<Faction> Factions = new List<Faction>();
 
-    public List<ISynchronizableObject> synchronizableObjects;
+    public List<ISynchronizableObject> synchronizableObjects = new List<ISynchronizableObject>();
 
     public GameDataBase()
     {
@@ -31,7 +31,7 @@ public class GameDataBase : IDataBase
             return;
         }
 
-        if (entity is ISynchronizableObject) synchronizableObjects.Add(entity as ISynchronizableObject);
+        if (entity != null && entity is ISynchronizableObject) synchronizableObjects.Add(entity as ISynchronizableObject);
     }
     public int GetIndexOfStoredEntity(object entity)
     {

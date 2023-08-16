@@ -11,9 +11,9 @@ namespace Systems
     public class UnitModifyingSystem : GameSystem, ISystem
     {
 
-        public UnitModifyingSystem()
+        public UnitModifyingSystem(GameDataBase dataBase)
         {
-
+            this.dataBase = dataBase;
         }
 
         public Unit SpawnNewUnit(short referenceUnitTypeID, Vector3 position, Game associatedGame)

@@ -9,13 +9,14 @@ using Zenject;
 
 namespace Systems
 {
-    public class FactionOperatorSystem : GameSystem, ISystem
+    public class FactionOperatingSystem : GameSystem, ISystem
     {
-        [Inject] private UnitModifyingSystem unitModifying;
+        private UnitModifyingSystem unitModifying;
 
-        public FactionOperatorSystem()
+        public FactionOperatingSystem(UnitModifyingSystem unitModifying, GameDataBase dataBase)
         {
-
+            this.unitModifying = unitModifying;
+            this.dataBase = dataBase;
         }
 
         public Faction SpawnNewFaction(short townhallUnitTypeID, Vector3 townhallPosition, Game gameToCreateIn, Player controllingPlayer = null)

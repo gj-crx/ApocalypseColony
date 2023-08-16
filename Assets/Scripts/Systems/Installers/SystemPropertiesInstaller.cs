@@ -13,24 +13,31 @@ namespace Systems.Installers
 
         public override void InstallBindings()
         {
-            Container.Bind<string>().FromInstance("allahnaruto");
-
+            //Interfaces
             Container.Bind<IPathfindingMap>().To<PathfindingMap>().AsTransient();
             Container.Bind<IPathfinding>().To<NormalPathfinding>().AsTransient();
             Container.Bind<IDataBase>().To<GameDataBase>().AsTransient();
 
+            //Data storages
             Container.Bind<GameDataBase>().AsTransient();
 
+            //Systems
             Container.Bind<MovementSystem>().AsTransient();
             Container.Bind<HealthSystem>().AsTransient();
-            Container.Bind<BuildingOperationSystem>().AsTransient();
-
+            Container.Bind<BuildingOperatingSystem>().AsTransient();
             Container.Bind<UnitModifyingSystem>().AsTransient();
             Container.Bind<UnitAISystem>().AsTransient();
-            Container.Bind<FactionOperatorSystem>().AsTransient();
+            Container.Bind<FactionOperatingSystem>().AsTransient();
             Container.Bind<PlayerOperatingSystem>().AsTransient();
             Container.Bind<PathfindingMap>().AsTransient();
             Container.Bind<NormalPathfinding>().AsTransient();
+            Container.Bind<TrainingSystem>().AsTransient();
+        }
+
+        public PlayerOperatingSystem Construct(InjectContext context)
+        {
+
+            return new PlayerOperatingSystem();
         }
     }
 }

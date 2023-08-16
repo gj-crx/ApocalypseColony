@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 998769699703342497}
   - component: {fileID: -8027460953760318625}
+  - component: {fileID: -5188039544698280956}
   m_Layer: 0
   m_Name: GamePrefab
   m_TagString: Untagged
@@ -44,6 +45,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6323d8ac79b34cb4680a438595afaa9a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  objectSpawner:
-    assosiatedGame: {fileID: -8027460953760318625}
   IsActive: 0
+--- !u!114 &-5188039544698280956
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 998769699703342496}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b4102319c6f933844b713ac19d8acb47, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  systemsToDeactivateInNewGame: []

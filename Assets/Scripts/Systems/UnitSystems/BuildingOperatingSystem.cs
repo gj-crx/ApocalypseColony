@@ -8,12 +8,12 @@ using Zenject;
 
 namespace Systems
 {
-    public class BuildingOperationSystem : GameSystem, ISystem
+    public class BuildingOperatingSystem : GameSystem, ISystem
     {
 
-        public BuildingOperationSystem()
+        public BuildingOperatingSystem(GameDataBase dataBase)
         {
-
+            this.dataBase = dataBase;
         }
     }
 }

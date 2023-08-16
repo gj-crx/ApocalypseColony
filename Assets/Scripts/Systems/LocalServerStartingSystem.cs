@@ -14,7 +14,7 @@ using Systems;
     public class LocalServerStartingSystem : NetworkBehaviour
     {
         [Inject] private DatabaseSynchronizator dataBaseSynchronizatorSingle;
-        [Inject] private GameFactory gameFactorySingle;
+        [Inject] private SystemsManagerFactory systemManagerFactory;
 
 
         private List<Game> GamesOfThisServer;
@@ -33,14 +33,11 @@ using Systems;
 
         public IEnumerator StartNewGameDelayedAction()
         {
-            if (gameFactorySingle == null) gameFactorySingle = new GameFactory();
+            if (systemManagerFactory == null) systemManagerFactory = new SystemsManagerFactory();
 
             GetLocalPlayer();
-            Game newGame = gameFactorySingle.Create();
-            GameSystemsManager.InstallGameSystems(newGame);
-
-            newGame.transform.SetParent(HierarchyCategoriesStorage.GamesCategory);
-
+            GameSystemsManager newSystemsManager = systemManagerFactory.Create();
+            Game newGame = newSystemsManager.gameObject.GetComponent<Game>();
 
             yield return new WaitForSeconds(1.0f);
 

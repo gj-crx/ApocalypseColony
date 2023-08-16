@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 
 using Zenject;
+using Systems;
 
-public class GameFactory : PlaceholderFactory<Game>
+public class SystemsManagerFactory : PlaceholderFactory<GameSystemsManager>
 {
 
 }

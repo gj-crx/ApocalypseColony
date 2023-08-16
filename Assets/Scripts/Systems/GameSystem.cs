@@ -8,24 +8,19 @@ using Zenject;
 
 namespace Systems
 {
-    public abstract class GameSystem : ISystem
+    public abstract class GameSystem
     {
         public bool IsActive { set { isActive = value; } }
 
         public delegate void UnitOperation(Unit operetaedUnit);
         public UnitOperation OnUnitOperated;
 
-        [Inject] internal GameDataBase dataBase;
+        internal GameDataBase dataBase;
 
 
         protected float timeIntervalInSeconds = 1.0f;
         private bool isActive = true;
 
-
-        public GameSystem()
-        {
-
-        }
 
         public async void SystemIterationCycle(int customTimeInterval = -1)
         {

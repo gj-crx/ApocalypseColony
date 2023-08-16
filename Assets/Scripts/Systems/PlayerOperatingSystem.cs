@@ -6,21 +6,25 @@ using UnityEngine;
 using Zenject;
 
 using Units;
+using System;
 
 namespace Systems
 {
     public class PlayerOperatingSystem : GameSystem, ISystem
     {
       
-        private FactionOperatorSystem factionOperator;
+        private FactionOperatingSystem factionOperator;
+
         [Inject]
-        private string naruto;
-
-        public PlayerOperatingSystem()
+        public PlayerOperatingSystem(FactionOperatingSystem factionOperator, GameDataBase dataBase)
         {
-            Debug.Log(naruto);
+            this.dataBase = dataBase;
+            this.factionOperator = factionOperator;
         }
+        public PlayerOperatingSystem() 
+        {
 
+        }
 
         public void AddPlayer(Player playerToAdd, Game game)
         {
@@ -37,7 +41,7 @@ namespace Systems
 
             Debug.Log(factionOperator);
             playerToAdd.PlayerGameplayObjectID = factionOperator.SpawnNewFaction(UnitTypesStorage.GetUnitByClass(Unit.UnitClassification.Townhall).UnitTypeID,
-                new Vector3(Random.Range(-50, 50), 1, Random.Range(-50, 50)), game, playerToAdd).FactionID;
+                new Vector3(UnityEngine.Random.Range(-50, 50), 1, UnityEngine.Random.Range(-50, 50)), game, playerToAdd).FactionID;
         }
     }
 }
