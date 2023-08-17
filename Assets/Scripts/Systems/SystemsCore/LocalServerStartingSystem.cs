@@ -30,6 +30,10 @@ public class LocalServerStartingSystem : NetworkBehaviour
         NetworkManager.StartHost();
         StartCoroutine(StartNewGameDelayedAction());
     }
+    public void LaunchClientAndConnect()
+    {
+        NetworkManager.StartClient();
+    }
 
     public IEnumerator StartNewGameDelayedAction()
     {

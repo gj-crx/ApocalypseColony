@@ -1,6 +1,7 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
+    <Style src="project://database/Assets/Prefabs/UI/PreTestStyle.uss?fileID=7433441132597879392&amp;guid=dfff73abacd55e745810b4be23b4c389&amp;type=3#PreTestStyle" />
     <ui:VisualElement name="TestingButtonsLayout" style="height: 55px;">
-        <ui:Button text="Host game" display-tooltip-when-elided="true" name="HostButton" style="height: 31px; width: 117px;" />
-        <ui:Button text="Connect to a game" display-tooltip-when-elided="true" name="ConnectButton" style="height: 25px; width: 120px;" />
+        <ui:Button text="Host game" display-tooltip-when-elided="true" name="HostButton" class="testingButton" style="height: 31px; width: 135px;" />
+        <ui:Button text="Connect to a game" display-tooltip-when-elided="true" name="ConnectButton" class="testingButton" style="height: 25px; width: 135px;" />
     </ui:VisualElement>
 </ui:UXML>

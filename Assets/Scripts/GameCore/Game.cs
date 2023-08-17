@@ -25,7 +25,7 @@ public class Game : MonoBehaviour
     }
 
     [Inject]
-    public void StartGameSystems()
+    public void InstallGame()
     {
 
     }
