@@ -1,0 +1,6 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
+    <ui:VisualElement name="TestingButtonsLayout" style="height: 55px;">
+        <ui:Button text="Host game" display-tooltip-when-elided="true" name="HostButton" style="height: 31px; width: 117px;" />
+        <ui:Button text="Connect to a game" display-tooltip-when-elided="true" name="ConnectButton" style="height: 25px; width: 120px;" />
+    </ui:VisualElement>
+</ui:UXML>
