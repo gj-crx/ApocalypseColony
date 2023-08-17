@@ -19,7 +19,7 @@ public class PlayerInput : NetworkBehaviour
     [Inject]
     private void InstallPlayerInputs()
     {
-
+        Debug.Log("Player input installed");
     }
 
     [ServerRpc]

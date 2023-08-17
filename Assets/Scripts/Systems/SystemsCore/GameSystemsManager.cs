@@ -17,14 +17,15 @@ namespace Systems
 
         [Inject]
         public void InstallGameSystems(MovementSystem movement, HealthSystem health, BuildingOperatingSystem buildingOperating, UnitModifyingSystem unitModifying, UnitAISystem unitAI,
-            FactionOperatingSystem factionOperating, PlayerOperatingSystem playerOperating, TrainingSystem training)
+            FactionOperatingSystem factionOperating, PlayerOperatingSystem playerOperating, TrainingSystem training,
+            GameDataBase dataBase)
         {
             systemsToDeactivate = systemsToDeactivateInNewGame;
 
             transform.SetParent(HierarchyCategoriesStorage.GamesCategory);
             Game gameToInstall = GetComponent<Game>();
             //database
-            gameToInstall.DataBase = new GameDataBase();
+            gameToInstall.DataBase = dataBase;
 
             //Single purpose systems
             AddNewSystem(movement, gameToInstall);

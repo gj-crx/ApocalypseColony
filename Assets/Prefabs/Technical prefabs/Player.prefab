@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 6998470939605222968}
   - component: {fileID: 6890209072223690651}
   - component: {fileID: 6998470939605222969}
-  - component: {fileID: 3995827775645992362}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -48,9 +47,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   PlayerID: 0
-  Inputs: {fileID: 6890209072223690651}
-  ConnectedGame:
-    IsActive: 1
+  ConnectedGame: {fileID: 0}
+  PlayerGameplayObjectID: -1
 --- !u!114 &6890209072223690651
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -63,7 +61,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 10bd6df0224a1a841af03267697799cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 6998470939605222968}
 --- !u!114 &6998470939605222969
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -80,15 +77,3 @@ MonoBehaviour:
   AlwaysReplicateAsRoot: 0
   DontDestroyWithOwner: 0
   AutoObjectParentSync: 1
---- !u!114 &3995827775645992362
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6998470939605222950}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3bfe98e75edbff841a0ece12aee6f54a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 

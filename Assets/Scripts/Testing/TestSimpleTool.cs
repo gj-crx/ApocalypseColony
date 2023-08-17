@@ -7,12 +7,12 @@ using Zenject;
 
 public class TestSimpleTool : MonoBehaviour
 {
-    [Inject] private PlayerInput playerInput;
+    private PlayerInput playerInput;
 
     [Inject]
-    private void Install()
+    private void Install(PlayerInput playerInput)
     {
-
+        this.playerInput = playerInput;
     }
 
     void Update()

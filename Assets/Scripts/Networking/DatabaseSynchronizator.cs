@@ -24,11 +24,13 @@ namespace Networking
 
         public async void GameSynchronizationProcess(IDataBase dataBaseToSynchronize)
         {
-            while (dataBaseToSynchronize != null)
+            while (dataBaseToSynchronize.IsKilled == false)
             {
+                Debug.Log("Sync process going on");
                 try
                 {
                     ISynchronizableObject[] synchronizableObjectsTempArray = dataBaseToSynchronize.GetSynchronizableObjects().ToArray();
+                    Debug.Log("Object to sync amount " + synchronizableObjectsTempArray.Length);
                     foreach (var objectToSync in synchronizableObjectsTempArray)
                     {
                         if (objectToSync != null)

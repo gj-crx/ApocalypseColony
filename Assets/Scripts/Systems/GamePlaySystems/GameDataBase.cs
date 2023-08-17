@@ -16,10 +16,11 @@ public class GameDataBase : IDataBase
 
     public List<ISynchronizableObject> synchronizableObjects = new List<ISynchronizableObject>();
 
-    public GameDataBase()
-    {
+    public bool IsKilled => isKilled;
 
-    }
+
+    private bool isKilled = false;
+
 
     public void AddEntityToDataBase(object entity)
     {
@@ -32,6 +33,7 @@ public class GameDataBase : IDataBase
         }
 
         if (entity != null && entity is ISynchronizableObject) synchronizableObjects.Add(entity as ISynchronizableObject);
+        Debug.Log("Entity added of type " + entity.GetType().Name + " synchrs counts " + synchronizableObjects.Count);
     }
     public int GetIndexOfStoredEntity(object entity)
     {
@@ -49,6 +51,7 @@ public class GameDataBase : IDataBase
 
         Units = null;
         Factions = null;
+        isKilled = true;
     }
 
     public object GetEntity(int storedEntityID, Type typeOfEntity)

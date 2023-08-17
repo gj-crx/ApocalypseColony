@@ -13,6 +13,7 @@ public interface IDataBase
     IDataBase.EntityTypeID GetIDofType(Type EntityType);
     List<ISynchronizableObject> GetSynchronizableObjects();
     void Dispose();
+    bool IsKilled { get; }
 
     public enum EntityTypeID : byte
     {

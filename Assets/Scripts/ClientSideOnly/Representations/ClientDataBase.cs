@@ -17,6 +17,11 @@ namespace ClientSideLogic
         public  List<UnitRepresentation> UnitRepresentations = new List<UnitRepresentation>();
         public  List<FactionRepresentation> FactionRepresentations = new List<FactionRepresentation>();
 
+        public bool IsKilled => isKilled;
+
+
+        private bool isKilled = false;
+
         [Inject]
         private ClientDataBase()
         {
@@ -60,6 +65,7 @@ namespace ClientSideLogic
 
             FactionRepresentations.Clear();
             FactionRepresentations = null;
+            isKilled = true;
         }
 
         public object GetEntity(int storedEntityID, Type typeOfEntity)
