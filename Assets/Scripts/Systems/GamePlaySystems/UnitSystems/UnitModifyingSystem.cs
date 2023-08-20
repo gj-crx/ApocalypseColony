@@ -11,31 +11,27 @@ namespace Systems
     public class UnitModifyingSystem : GameSystem, ISystem
     {
 
-        public UnitModifyingSystem(GameDataBase dataBase)
-        {
-            this.dataBase = dataBase;
-        }
+        public UnitModifyingSystem(GameSystemsManager systemsManager) : base(systemsManager) => Resolve(systemsManager);
 
-        public Unit SpawnNewUnit(short referenceUnitTypeID, Vector3 position, Game associatedGame)
+        public Unit SpawnNewUnit(short referenceUnitTypeID, Vector3 position)
         {
-            Unit newUnit = CloneUnit(UnitTypesStorage.UnitTypes[referenceUnitTypeID], associatedGame);
+            Unit newUnit = CloneUnit(UnitTypesStorage.UnitTypes[referenceUnitTypeID]);
             dataBase.AddEntityToDataBase(newUnit);
             newUnit.UnitID = dataBase.GetIndexOfStoredEntity(newUnit);
             newUnit.Position = position;
 
             return newUnit;
         }
-        public Unit CloneUnit(Unit unitToCloneFrom, Game clonedUnitGame)
+        public Unit CloneUnit(Unit unitToCloneFrom)
         {
             Unit clonedUnit = new Unit()
             {
                 UnitTypeID = unitToCloneFrom.UnitTypeID,
-                CurrentGame = clonedUnitGame,
 
                 UnitName = unitToCloneFrom.UnitName,
                 Class = unitToCloneFrom.Class,
                 Position = unitToCloneFrom.Position,
-                IsActive = clonedUnitGame != null,
+                IsActive = true,
                 MoveSpeed = unitToCloneFrom.MoveSpeed,
                 Damage = unitToCloneFrom.Damage,
                 AttackRange = unitToCloneFrom.AttackRange,

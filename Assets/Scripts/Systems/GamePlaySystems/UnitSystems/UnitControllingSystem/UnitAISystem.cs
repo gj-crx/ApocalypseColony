@@ -4,7 +4,7 @@ using UnityEngine;
 using System.Threading.Tasks;
 
 using Units;
-using Pathfinding;
+using Systems.Pathfinding;
 using System;
 using Zenject;
 
@@ -18,23 +18,24 @@ namespace Systems
     public class UnitAISystem : GameSystem, ISystem
     {
         private IPathfinding pathfindingSubSystem;
-        private List<Unit> unitsToOperate;
         private Queue<Tuple<Unit, Unit.Order>> queuedOrders = new Queue<Tuple<Unit, Unit.Order>>();
         
-        public UnitAISystem(GameDataBase dataBase)
+        public UnitAISystem(GameSystemsManager systemsManager) : base(systemsManager) => Resolve(systemsManager);
+        protected override void Resolve(GameSystemsManager systemsManager)
         {
-            dataBase = dataBase;
+            base.Resolve(systemsManager);
             OnUnitOperated += OperateOrderQueue;
+            pathfindingSubSystem = systemsManager.GetSystem(typeof(NormalPathfinding)) as IPathfinding;
         }
 
         public void OperateOrderQueue(Unit notOperatedUnit)
         {
-            IssueQueuedOrders();
-            OperateOngoingUnitOrders(timeIntervalInSeconds);
+        //     IssueQueuedOrders();
+        //    OperateOngoingUnitOrders(timeIntervalInSeconds);
         }
 
         public void EnqueueNewOrder(Unit unit, Unit.Order order) => queuedOrders.Enqueue(new Tuple<Unit, Unit.Order>(unit, order));
-
+        /*
         /// <summary>
         /// Issues new orders to units when needed only
         /// </summary>
@@ -68,5 +69,6 @@ namespace Systems
                 }
             }
         }
+        */
     }
 }

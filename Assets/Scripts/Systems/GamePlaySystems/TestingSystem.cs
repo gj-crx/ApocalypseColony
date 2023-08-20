@@ -6,6 +6,6 @@ namespace Systems.Testing
 {
     public class TestingSystem : GameSystem, ISystem
     {
-
+        public TestingSystem(GameSystemsManager systemsManager) : base(systemsManager) => Resolve(systemsManager);
     }
 }

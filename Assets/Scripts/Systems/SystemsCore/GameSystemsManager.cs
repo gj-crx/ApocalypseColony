@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using UnityEngine;
 
 using Zenject;
+using Systems.Pathfinding;
 
 namespace Systems
 {
@@ -14,38 +15,51 @@ namespace Systems
         private List<string> systemsToDeactivateInNewGame = new List<string>();
 
         private static List<string> systemsToDeactivate = new List<string>();
+        private Game associatedGame;
 
         [Inject]
-        public void InstallGameSystems(MovementSystem movement, HealthSystem health, BuildingOperatingSystem buildingOperating, UnitModifyingSystem unitModifying, UnitAISystem unitAI,
-            FactionOperatingSystem factionOperating, PlayerOperatingSystem playerOperating, TrainingSystem training,
-            GameDataBase dataBase)
+        public void InstallGameSystems()
         {
             systemsToDeactivate = systemsToDeactivateInNewGame;
 
             transform.SetParent(HierarchyCategoriesStorage.GamesCategory);
             Game gameToInstall = GetComponent<Game>();
+            associatedGame = gameToInstall;
             //database
-            gameToInstall.DataBase = dataBase;
+            gameToInstall.DataBase = new GameDataBase();
 
             //Single purpose systems
-            AddNewSystem(movement, gameToInstall);
-            AddNewSystem(health, gameToInstall);
-            AddNewSystem(buildingOperating, gameToInstall);
-            AddNewSystem(unitModifying, gameToInstall);
-            AddNewSystem(unitAI, gameToInstall);
-            AddNewSystem(factionOperating, gameToInstall);
-            AddNewSystem(playerOperating, gameToInstall);
-            AddNewSystem(training, gameToInstall);
+            AddNewSystem(new MovementSystem(this));
+            AddNewSystem(new PathfindingMap());
+            AddNewSystem(new NormalPathfinding(this));
+            AddNewSystem(new HealthSystem(this));
+            AddNewSystem(new BuildingOperatingSystem(this));
+            AddNewSystem(new UnitModifyingSystem(this));
+            AddNewSystem(new UnitAISystem(this));
+            AddNewSystem(new FactionOperatingSystem(this));
+            AddNewSystem(new PlayerOperatingSystem(this));
+            AddNewSystem(new TrainingSystem(this));
 
             foreach (var system in  gameToInstall.GameSystems) Task.Run(() => system.SystemIterationCycle());
         }
+        public object GetSystem(Type systemType)
+        {
+            foreach (var system in associatedGame.GameSystems)
+            {
+                if (system.GetType() == systemType) return system;
+            }
+            Debug.LogError("System not found! " + systemType.Name);
+            return null;
+        }
+        public GameDataBase GetDataBase() => (GameDataBase)associatedGame.DataBase;
 
-        private static void AddNewSystem(object newSystemObject, Game gameToAddInto)
+        private void AddNewSystem(object newSystemObject)
         {
             if (systemsToDeactivate.Contains(newSystemObject.GetType().Name) == false)
             {
-                gameToAddInto.GameSystems.Add(newSystemObject as ISystem);
+                associatedGame.GameSystems.Add(newSystemObject as ISystem);
             }
         }
+
     }
 }

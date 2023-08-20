@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Pathfinding;
 
-namespace Pathfinding
+namespace Systems.Pathfinding
 {
     public interface IPathfinding
     {

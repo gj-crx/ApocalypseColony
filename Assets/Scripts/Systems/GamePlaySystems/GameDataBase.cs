@@ -6,6 +6,7 @@ using Units;
 using Factions;
 using System;
 using Zenject;
+using Unity.Netcode;
 
 [System.Serializable]
 public class GameDataBase : IDataBase
@@ -18,9 +19,15 @@ public class GameDataBase : IDataBase
 
     public bool IsKilled => isKilled;
 
-
     private bool isKilled = false;
 
+    public string databaseName = "nnn";
+
+    [Inject]
+    public GameDataBase()
+    {
+        databaseName += UnityEngine.Random.Range(-1000, 1000);
+    }
 
     public void AddEntityToDataBase(object entity)
     {
@@ -33,7 +40,7 @@ public class GameDataBase : IDataBase
         }
 
         if (entity != null && entity is ISynchronizableObject) synchronizableObjects.Add(entity as ISynchronizableObject);
-        Debug.Log("Entity added of type " + entity.GetType().Name + " synchrs counts " + synchronizableObjects.Count);
+        Debug.Log("Entity added to database " + databaseName + " total amount " + synchronizableObjects.Count);
     }
     public int GetIndexOfStoredEntity(object entity)
     {
@@ -47,7 +54,8 @@ public class GameDataBase : IDataBase
 
     public void Dispose()
     {
-        foreach (var unit in Units) unit.CurrentGame = null;
+        Debug.Log("Database disposed");
+      //  foreach (var unit in Units) 
 
         Units = null;
         Factions = null;

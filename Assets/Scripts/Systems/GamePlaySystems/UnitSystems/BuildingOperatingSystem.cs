@@ -11,9 +11,6 @@ namespace Systems
     public class BuildingOperatingSystem : GameSystem, ISystem
     {
 
-        public BuildingOperatingSystem(GameDataBase dataBase)
-        {
-            this.dataBase = dataBase;
-        }
+        public BuildingOperatingSystem(GameSystemsManager systemsManager) : base(systemsManager) => Resolve(systemsManager);
     }
 }

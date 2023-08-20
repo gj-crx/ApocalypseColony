@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 using Zenject;
-using Pathfinding;
 using Systems;
+using Systems.Pathfinding;
 
 namespace Systems.Installers
 {
@@ -17,6 +17,7 @@ namespace Systems.Installers
             Container.Bind<IPathfindingMap>().To<PathfindingMap>().AsTransient();
             Container.Bind<IPathfinding>().To<NormalPathfinding>().AsTransient();
             Container.Bind<IDataBase>().To<GameDataBase>().AsTransient();
+            /*
 
             //Data storages
             Container.Bind<GameDataBase>().AsTransient();
@@ -32,12 +33,8 @@ namespace Systems.Installers
             Container.Bind<PathfindingMap>().AsTransient();
             Container.Bind<NormalPathfinding>().AsTransient();
             Container.Bind<TrainingSystem>().AsTransient();
-        }
 
-        public PlayerOperatingSystem Construct(InjectContext context)
-        {
-
-            return new PlayerOperatingSystem();
+            */
         }
     }
 }

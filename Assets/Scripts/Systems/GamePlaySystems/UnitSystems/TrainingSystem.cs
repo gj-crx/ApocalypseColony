@@ -14,10 +14,28 @@ namespace Systems
         float timeStep = 1;
 
 
-        public TrainingSystem(GameDataBase dataBase)
+        public TrainingSystem(GameSystemsManager systemsManager) : base(systemsManager) => Resolve(systemsManager);
+        protected override void Resolve(GameSystemsManager systemsManager)
         {
-            this.dataBase = dataBase;
+            base.Resolve(systemsManager);
             OnUnitOperated += TrainingQueueIteration;
+            unitModifying = (UnitModifyingSystem)systemsManager.GetSystem(typeof(UnitModifyingSystem));
+        }
+
+        public void TrainingQueueIteration(Unit trainingUnit)
+        {
+            Debug.Log("training q iteraction " + trainingUnit.ComponentTraining.TrainingTimer);
+            if (trainingUnit.ComponentTraining.UnitTrainingQueue.Count > 0)
+            {
+                if (trainingUnit.ComponentTraining.TrainingTimer > UnitTypesStorage.UnitTypes[trainingUnit.ComponentTraining.UnitTrainingQueue.Peek()].TrainingTime)
+                { //Enough time passed to train current unit
+                    unitModifying.SpawnNewUnit(trainingUnit.ComponentTraining.UnitTrainingQueue.Dequeue(),
+                        trainingUnit.Position + trainingUnit.ComponentTraining.UnitSpawningPositionOffset);
+
+                    trainingUnit.ComponentTraining.TrainingTimer = 0;
+                }
+                else trainingUnit.ComponentTraining.TrainingTimer += timeStep * trainingUnit.ComponentTraining.TrainingSpeed;
+            }
         }
 
         public bool AddUnitToTrainingQueue(Unit trainingUnit , short unitTypeIDToTrain, float[] resourceStorage)
@@ -47,22 +65,6 @@ namespace Systems
 
             trainingUnit.ComponentTraining.UnitTrainingQueue.Enqueue(unitTypeIDToTrain);
             return true;
-        }
-
-        public void TrainingQueueIteration(Unit trainingUnit)
-        {
-            Debug.Log("training q iteraction " + trainingUnit.ComponentTraining.TrainingTimer);
-            if (trainingUnit.ComponentTraining.UnitTrainingQueue.Count > 0)
-            {
-                if (trainingUnit.ComponentTraining.TrainingTimer > UnitTypesStorage.UnitTypes[trainingUnit.ComponentTraining.UnitTrainingQueue.Peek()].TrainingTime)
-                { //Enough time passed to train current unit
-                    unitModifying.SpawnNewUnit(trainingUnit.ComponentTraining.UnitTrainingQueue.Dequeue(),
-                        trainingUnit.Position + trainingUnit.ComponentTraining.UnitSpawningPositionOffset, trainingUnit.CurrentGame);
-
-                    trainingUnit.ComponentTraining.TrainingTimer = 0;
-                }
-                else trainingUnit.ComponentTraining.TrainingTimer += timeStep * trainingUnit.ComponentTraining.TrainingSpeed;
-            }
         }
         private void CheckResourceStoragesCompatability(float[] storage1, List<float> storage2)
         {

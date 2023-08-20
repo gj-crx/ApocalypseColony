@@ -8,5 +8,4 @@ public interface ISynchronizableObject
 {
     IEntityData GetDataToTransfer();
     void ApplyTransferedData(IEntityData transferedData);
-    ClientRpcParams GetClientRpcParams();
 }

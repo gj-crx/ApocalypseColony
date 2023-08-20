@@ -3,10 +3,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Pathfinding {
-    public class PathfindingMap : IPathfindingMap
+namespace Systems.Pathfinding {
+    public class PathfindingMap : ISystem, IPathfindingMap
     {
-        private ObstaclesMap obstaclesMap;
+        private ObstaclesMap obstaclesMap = new ObstaclesMap();
+
+        public bool IsActive { get; set; }
 
         public bool PathExistAndPassable(int XCord, int YCord)
         {
@@ -15,9 +17,12 @@ namespace Pathfinding {
             return obstaclesMap[XCord, YCord].PointType == PassageType.PassableByLand;
         }
         public void AddNewPoint(int x, int y, PassageType passageType) => obstaclesMap[x, y] = new PassablePoint(passageType);
+
+        public void SystemIterationCycle(int customTimeInterval = -1) => throw new NotImplementedException();
+
         public PathfindingMap()
         {
-            obstaclesMap = new ObstaclesMap();
+
         }
 
         internal class ObstaclesMap

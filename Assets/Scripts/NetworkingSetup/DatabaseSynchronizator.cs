@@ -22,7 +22,7 @@ namespace Networking
         public int UnitSyncInterval = 75;
 
 
-        public async void GameSynchronizationProcess(IDataBase dataBaseToSynchronize)
+        public async void GameSynchronizationProcess(IDataBase dataBaseToSynchronize, ClientRpcParams clientRpcParamsToSync)
         {
             while (dataBaseToSynchronize.IsKilled == false)
             {
@@ -35,7 +35,8 @@ namespace Networking
                     {
                         if (objectToSync != null)
                         {
-                            SyncObjectClientRpc(dataBaseToSynchronize.GetIndexOfStoredEntity(objectToSync), dataBaseToSynchronize.GetIDofType(objectToSync.GetType()), objectToSync.GetDataToTransfer(), objectToSync.GetClientRpcParams());
+                            SyncObjectClientRpc(dataBaseToSynchronize.GetIndexOfStoredEntity(objectToSync), dataBaseToSynchronize.GetIDofType(objectToSync.GetType()),
+                                objectToSync.GetDataToTransfer(), clientRpcParamsToSync);
                         }
                     }
                 }

@@ -3,6 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+using Unity.Netcode;
+
 public interface IDataBase 
 {
 
@@ -12,6 +14,7 @@ public interface IDataBase
     Type GetTypeOutOfID(IDataBase.EntityTypeID entityTypeID);
     IDataBase.EntityTypeID GetIDofType(Type EntityType);
     List<ISynchronizableObject> GetSynchronizableObjects();
+    
     void Dispose();
     bool IsKilled { get; }
 

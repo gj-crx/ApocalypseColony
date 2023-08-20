@@ -13,8 +13,10 @@ namespace Systems
     public class HealthSystem : GameSystem, ISystem
     {
 
-        public HealthSystem()
+        public HealthSystem(GameSystemsManager systemsManager) : base(systemsManager) => Resolve(systemsManager);
+        protected override void Resolve(GameSystemsManager systemsManager)
         {
+            base.Resolve(systemsManager);
             OnUnitOperated += OperateUnitHealth;
         }
 

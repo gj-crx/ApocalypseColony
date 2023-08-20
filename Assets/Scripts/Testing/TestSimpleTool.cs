@@ -27,7 +27,7 @@ public class TestSimpleTool : MonoBehaviour
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         if (Physics.Raycast(ray, out hit) == false) return;
 
-       // playerInput.SpawnUnitOrderServerRpc(0, hit.point);
+        playerInput.TestForceSpawnUnitServerRpc();
     }
     private void ClickOrderUnit()
     {

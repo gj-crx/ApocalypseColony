@@ -15,15 +15,11 @@ namespace Systems
       
         private FactionOperatingSystem factionOperator;
 
-        [Inject]
-        public PlayerOperatingSystem(FactionOperatingSystem factionOperator, GameDataBase dataBase)
+        public PlayerOperatingSystem(GameSystemsManager systemsManager) : base(systemsManager) => Resolve(systemsManager);
+        protected override void Resolve(GameSystemsManager systemsManager)
         {
-            this.dataBase = dataBase;
-            this.factionOperator = factionOperator;
-        }
-        public PlayerOperatingSystem() 
-        {
-
+            base.Resolve(systemsManager);
+            factionOperator = (FactionOperatingSystem)systemsManager.GetSystem(typeof(FactionOperatingSystem));
         }
 
         public void AddPlayer(Player playerToAdd, Game game)

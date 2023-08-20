@@ -10,9 +10,10 @@ namespace Systems
 {
     public class MovementSystem : GameSystem, ISystem
     {
-        public MovementSystem(GameDataBase dataBase)
+        public MovementSystem(GameSystemsManager systemsManager) : base(systemsManager) => Resolve(systemsManager);
+        protected override void Resolve(GameSystemsManager systemsManager)
         {
-            this.dataBase =  dataBase;
+            base.Resolve(systemsManager);
             OnUnitOperated += OperateUnitMovement;
         }
 

@@ -18,7 +18,7 @@ namespace Units
         public bool IsActive = true;
 
         //NetInfo
-        [HideInInspector] public Game CurrentGame { get; set; } = null;
+    //    [HideInInspector] public Game CurrentGame { get; set; } = null;
         [HideInInspector] public int UnitID = 0;
         public short UnitTypeID = 0;
 
@@ -52,7 +52,7 @@ namespace Units
         public Unit()
         {
             Body = Body1X.GetBodyType(bodyType);
-            Debug.Log("New unit" + UnitName);
+            Debug.Log("New unit " + UnitName);
         }
 
         public float CurrentHP
@@ -69,8 +69,6 @@ namespace Units
         public IEntityData GetDataToTransfer() => new UnitSeriazableData(UnitID, UnitTypeID, Position, CurrentHP);
 
         public void ApplyTransferedData(IEntityData transferedData) => ((UnitSeriazableData)transferedData).ApplyData(this);
-
-        public ClientRpcParams GetClientRpcParams() => CurrentGame.ConnectedClientsParams;
 
 
         /// <summary>

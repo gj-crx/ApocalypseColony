@@ -4,7 +4,7 @@ using UnityEngine;
 
 
 using Units;
-using Pathfinding;
+using Systems.Pathfinding;
 
 namespace Systems.UnitAI
 {

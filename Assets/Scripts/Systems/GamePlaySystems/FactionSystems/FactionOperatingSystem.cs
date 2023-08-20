@@ -13,15 +13,16 @@ namespace Systems
     {
         private UnitModifyingSystem unitModifying;
 
-        public FactionOperatingSystem(UnitModifyingSystem unitModifying, GameDataBase dataBase)
+        public FactionOperatingSystem(GameSystemsManager systemsManager) : base(systemsManager) => Resolve(systemsManager);
+        protected override void Resolve(GameSystemsManager systemsManager)
         {
-            this.unitModifying = unitModifying;
-            this.dataBase = dataBase;
+            base.Resolve(systemsManager);
+            unitModifying = (UnitModifyingSystem)systemsManager.GetSystem(typeof(UnitModifyingSystem));
         }
 
         public Faction SpawnNewFaction(short townhallUnitTypeID, Vector3 townhallPosition, Game gameToCreateIn, Player controllingPlayer = null)
         {
-            Unit townHall = unitModifying.SpawnNewUnit(townhallUnitTypeID, townhallPosition, gameToCreateIn);
+            Unit townHall = unitModifying.SpawnNewUnit(townhallUnitTypeID, townhallPosition);
 
             Faction newFaction = new Faction(true) { ControllingPlayerID = controllingPlayer.OwnerClientId, AssociatedGame = gameToCreateIn };
             newFaction.Buildings.Add(townHall);

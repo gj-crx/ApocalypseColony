@@ -21,6 +21,14 @@ namespace Systems
         protected float timeIntervalInSeconds = 1.0f;
         private bool isActive = true;
 
+        public GameSystem(GameSystemsManager systemsManager)
+        {
+            Resolve(systemsManager);
+        }
+        protected virtual void Resolve(GameSystemsManager systemsManager)
+        {
+            dataBase = systemsManager.GetDataBase();
+        }
 
         public async void SystemIterationCycle(int customTimeInterval = -1)
         {

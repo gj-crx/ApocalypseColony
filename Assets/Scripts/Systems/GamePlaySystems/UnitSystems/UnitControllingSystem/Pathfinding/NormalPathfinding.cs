@@ -1,18 +1,19 @@
+using Pathfinding;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Zenject;
 
-namespace Pathfinding
+namespace Systems.Pathfinding
 {
-    public class NormalPathfinding : IPathfinding
+    public class NormalPathfinding : GameSystem, ISystem, IPathfinding
     {
-        public IPathfindingMap map;
+        private IPathfindingMap map;
 
         private bool useZCord = true;
 
-        private DistanceMapHolder distancesMap;
+        private DistanceMapHolder distancesMap = new DistanceMapHolder();
         private IBodyType currentBodyType = null;
         private short currentDistance = 0;
         private Vector2Int[] way = null;
@@ -28,11 +29,13 @@ namespace Pathfinding
             }
         }
 
-        public NormalPathfinding(IPathfindingMap m)
+        public NormalPathfinding(GameSystemsManager systemsManager) : base(systemsManager) => Resolve(systemsManager);
+        protected override void Resolve(GameSystemsManager systemsManager)
         {
-            map = m;
-            distancesMap = new DistanceMapHolder();
+            base.Resolve(systemsManager);
+            map = systemsManager.GetSystem(typeof(PathfindingMap)) as IPathfindingMap;
         }
+
         public Vector3[] GetWayPath(Vector3 From, Vector3 Target, IBodyType bodyType, byte MaximumCorrectionStep = 2)
         {
             currentBodyType = bodyType;
@@ -222,6 +225,7 @@ namespace Pathfinding
 
             return TypeConversions.ToVector2Int(pos, useZCord);
         }
+
     }
     internal class DistanceMapPoint
     {

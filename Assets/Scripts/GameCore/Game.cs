@@ -29,17 +29,10 @@ public class Game : MonoBehaviour
     {
 
     }
-
-    public object GetSystem(Type systemType)
+    private void Update()
     {
-        foreach (var system in GameSystems)
-        {
-            if (system.GetType() == systemType) return system;
-        }
-        Debug.LogError("System not found! " + systemType.Name);
-        return null;
+        Debug.Log(DataBase.GetSynchronizableObjects().Count.ToString() + " _ " + (DataBase.GetSynchronizableObjects() != null).ToString());
     }
-
 
     private void Dispose()
     {

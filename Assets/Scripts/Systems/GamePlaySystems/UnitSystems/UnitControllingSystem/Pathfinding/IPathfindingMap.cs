@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Pathfinding
+namespace Systems.Pathfinding
 {
     public interface IPathfindingMap
     {

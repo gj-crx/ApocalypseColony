@@ -14,12 +14,19 @@ public class PlayerInput : NetworkBehaviour
 
     [Inject] private IDataBase dataBase;
     [Inject] private TrainingSystem training;
+    [Inject] private UnitAISystem unitAI;
+    [Inject] private UnitModifyingSystem unitModifying;
 
 
     [Inject]
     private void InstallPlayerInputs()
     {
         Debug.Log("Player input installed");
+    }
+    [ServerRpc]
+    public void TestForceSpawnUnitServerRpc()
+    {
+        unitModifying.SpawnNewUnit(0, Vector3.zero);
     }
 
     [ServerRpc]
@@ -30,8 +37,7 @@ public class PlayerInput : NetworkBehaviour
         Debug.Log("order recieved " + controlledUnit.UnitName + " target position " + targetPosition);
 
         //Gets the reference to the ordering system, instantiates new order and enqueues it to the system
-       ((UnitAISystem)controlledUnit.CurrentGame.GetSystem(typeof(UnitAISystem))).EnqueueNewOrder(controlledUnit, 
-           new Unit.Order { Type = Unit.OrderType.MoveToPosition, TargetPosition = targetPosition });
+         unitAI.EnqueueNewOrder(controlledUnit, new Unit.Order { Type = Unit.OrderType.MoveToPosition, TargetPosition = targetPosition });
     }
     [ServerRpc]
     public void OrderTrainingOfANewUnitServerRpc(short unitTypeIDToTrain, short playerFactionID)
