@@ -70,8 +70,16 @@ namespace ClientSideLogic
 
         public object GetEntity(int storedEntityID, Type typeOfEntity)
         {
-            if (typeOfEntity == typeof(UnitRepresentation)) return UnitRepresentations[storedEntityID];
-            else if (typeOfEntity == typeof(FactionRepresentation)) return FactionRepresentations[storedEntityID];
+            if (typeOfEntity == typeof(UnitRepresentation))
+            {
+                try { return UnitRepresentations[storedEntityID]; }
+                catch { return null; }
+            }
+            else if (typeOfEntity == typeof(FactionRepresentation))
+            {
+                try { return FactionRepresentations[storedEntityID]; }
+                catch { return null; }
+            }
             else
             {
                 Debug.LogError("Invalid type!");

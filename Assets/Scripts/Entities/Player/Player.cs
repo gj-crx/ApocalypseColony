@@ -5,7 +5,7 @@ using Unity.Netcode;
 
 using Factions;
 
-public class Player : NetworkBehaviour
+public class Player : NetworkBehaviour, IPlayerController
 {
     [Header("-- BOTH SERVER AND CLIENT VARIABLES")]
     public ulong PlayerID = 0;

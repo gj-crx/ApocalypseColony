@@ -12,17 +12,24 @@ using Systems;
 public class PlayerInput : NetworkBehaviour
 {
 
-    [Inject] private IDataBase dataBase;
-    [Inject] private TrainingSystem training;
-    [Inject] private UnitAISystem unitAI;
-    [Inject] private UnitModifyingSystem unitModifying;
+    //SERVER SIDE ONLY VARIABLES
+     private IDataBase dataBase;
+     private TrainingSystem training;
+     private UnitAISystem unitAI;
+     private UnitModifyingSystem unitModifying;
 
-
-    [Inject]
-    private void InstallPlayerInputs()
+    private void Awake()
     {
-        Debug.Log("Player input installed");
+        if (IsServer)
+        {
+            GetComponent<player>
+        }
     }
+    public void Resolve(GameSystemsManager systemsManager)
+    {
+
+    }
+
     [ServerRpc]
     public void TestForceSpawnUnitServerRpc()
     {

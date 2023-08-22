@@ -7,7 +7,7 @@ namespace Units.ClientSide {
     /// <summary>
     /// Does not contains any actual logic, just client side representation
     /// </summary>
-    public class UnitRepresentation : MonoBehaviour
+    public class UnitRepresentation : MonoBehaviour, ISynchronizableObject
     {
         public int UnitID = 0;
 
@@ -39,11 +39,24 @@ namespace Units.ClientSide {
             LastUpdatedPosition = dataToApply.Position;
             CurrentHP = dataToApply.CurrentHP;
         }
+
+        public void ApplyTransferedData(IEntityData transferedData)
+        {
+            Unit.UnitSeriazableData data = (Unit.UnitSeriazableData)transferedData;
+
+            LastUpdatedPosition = data.Position;
+            CurrentHP = data.CurrentHP;
+        }
+
         public void DeathClientSide()
         {
 
         }
 
+        public IEntityData GetDataToTransfer()
+        {
+            throw new System.NotImplementedException();
+        }
 
         private void FixedUpdate() => PositionInterpolation();
         private void PositionInterpolation()

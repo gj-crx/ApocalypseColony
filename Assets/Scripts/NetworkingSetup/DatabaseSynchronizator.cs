@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 
 using Units;
 using Units.ClientSide;
+
 using Factions;
 using Factions.ClientSide;
 using ClientSideLogic;
@@ -33,10 +34,10 @@ namespace Networking
                     Debug.Log("Object to sync amount " + synchronizableObjectsTempArray.Length);
                     foreach (var objectToSync in synchronizableObjectsTempArray)
                     {
-                        if (objectToSync != null)
+                        if (objectToSync.GetType() == typeof(Unit))
                         {
-                            SyncObjectClientRpc(dataBaseToSynchronize.GetIndexOfStoredEntity(objectToSync), dataBaseToSynchronize.GetIDofType(objectToSync.GetType()),
-                                objectToSync.GetDataToTransfer(), clientRpcParamsToSync);
+                            SyncUnitClientRpc((Unit.UnitSeriazableData)objectToSync.GetDataToTransfer(),
+                                dataBaseToSynchronize.GetIndexOfStoredEntity(objectToSync), dataBaseToSynchronize.GetIDofType(objectToSync.GetType()), clientRpcParamsToSync);
                         }
                     }
                 }
@@ -50,22 +51,33 @@ namespace Networking
         }
 
         [ClientRpc]
-        private void SyncObjectClientRpc(int objectToSyncID, IDataBase.EntityTypeID objectToSyncTypeID, IEntityData dataToSync, ClientRpcParams clientRpcParams)
+        private void SyncUnitClientRpc(Unit.UnitSeriazableData dataToSync, 
+            int objectToSyncID, IDataBase.EntityTypeID objectToSyncTypeID, ClientRpcParams clientRpcParams)
         {
-            (ClientDataBase.Singleton.GetEntity(objectToSyncID, ClientDataBase.Singleton.GetTypeOutOfID(objectToSyncTypeID)) as ISynchronizableObject).ApplyTransferedData(dataToSync);
-            Debug.LogError("actually got it lol " + objectToSyncTypeID);
+            object recievedObject = ClientDataBase.Singleton.GetEntity(objectToSyncID, ClientDataBase.Singleton.GetTypeOutOfID(objectToSyncTypeID));
+
+            if (recievedObject != null) (recievedObject as ISynchronizableObject).ApplyTransferedData(dataToSync);
+            else UnitRepresentation.CreateUnitRepresentationOnAClient(dataToSync);
+            
         }
         /*
-        [ClientRpc]
-        public void ObjectDeathClientRpc(int deadObjectReferenceID, ClientRpcParams clientRpcParams)
-        {
-            Debug.Log("Object death synced to client " + deadObjectReferenceID);
-            if (ClientDataBase.UnitRepresentations[deadObjectReferenceID] != null)
-            {
-                ClientDataBase.UnitRepresentations[deadObjectReferenceID].DeathClientSide();
-                ClientDataBase.UnitRepresentations.Remove(ClientDataBase.UnitRepresentations[deadObjectReferenceID]);
-            }
-        }
-        */
+       [ClientRpc]
+       private void SyncObjectClientRpc(int objectToSyncID, IDataBase.EntityTypeID objectToSyncTypeID, IEntityData dataToSync, ClientRpcParams clientRpcParams)
+       {
+           (ClientDataBase.Singleton.GetEntity(objectToSyncID, ClientDataBase.Singleton.GetTypeOutOfID(objectToSyncTypeID)) as ISynchronizableObject).ApplyTransferedData(dataToSync as IEntityData);
+           Debug.LogError("actually got it lol " + objectToSyncTypeID);
+       }
+
+       [ClientRpc]
+       public void ObjectDeathClientRpc(int deadObjectReferenceID, ClientRpcParams clientRpcParams)
+       {
+           Debug.Log("Object death synced to client " + deadObjectReferenceID);
+           if (ClientDataBase.UnitRepresentations[deadObjectReferenceID] != null)
+           {
+               ClientDataBase.UnitRepresentations[deadObjectReferenceID].DeathClientSide();
+               ClientDataBase.UnitRepresentations.Remove(ClientDataBase.UnitRepresentations[deadObjectReferenceID]);
+           }
+       }
+       */
     }
 }
