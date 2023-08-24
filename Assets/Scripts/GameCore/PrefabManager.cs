@@ -26,5 +26,7 @@ public class PrefabManager : MonoBehaviour
         UnitRepresentationPrefabs = unitRepresentationPrefabs;
         FactionPrefab = factionPrefab;
     }
+    //Pre-install methods to get prefabs for binding
     public static Game GetGamePrefab() => GameObject.Find("StaticDataStorage").GetComponent<PrefabManager>().gamePrefab.GetComponent<Game>();
+    public static GameObject GetPlayerPrefab() => GameObject.Find("StaticDataStorage").GetComponent<PrefabManager>().playerNetObjectPrefab;
 }

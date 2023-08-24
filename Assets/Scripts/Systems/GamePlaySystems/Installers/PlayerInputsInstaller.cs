@@ -8,6 +8,6 @@ public class PlayerInputsInstaller : MonoInstaller
 {
     public override void InstallBindings()
     {
-        Container.Bind<PlayerInput>().AsSingle();
+        Container.BindFactory<Player, PlayerFactory>().FromComponentInNewPrefab(PrefabManager.GetPlayerPrefab());
     }
 }

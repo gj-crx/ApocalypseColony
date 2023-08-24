@@ -1,11 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+
 using Unity.Netcode;
+using Zenject;
 
-using Factions;
-
-public class Player : NetworkBehaviour, IPlayerController
+public class Player : NetworkBehaviour
 {
     [Header("-- BOTH SERVER AND CLIENT VARIABLES")]
     public ulong PlayerID = 0;
@@ -22,11 +22,13 @@ public class Player : NetworkBehaviour, IPlayerController
     public static Player LocalPlayerObject = null;
 
 
-    private void Start()
+    [Inject]
+    private void Install()
     {
         if (IsLocalPlayer || IsHost) LocalPlayerObject = this;
         Debug.Log("localplayer " + LocalPlayerObject);
     }
+
 
    
 }

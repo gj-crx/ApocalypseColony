@@ -52,7 +52,6 @@ namespace Units
         public Unit()
         {
             Body = Body1X.GetBodyType(bodyType);
-            Debug.Log("New unit " + UnitName);
         }
 
         public float CurrentHP

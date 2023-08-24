@@ -18,13 +18,7 @@ public class PlayerInput : NetworkBehaviour
      private UnitAISystem unitAI;
      private UnitModifyingSystem unitModifying;
 
-    private void Awake()
-    {
-        if (IsServer)
-        {
-            GetComponent<player>
-        }
-    }
+    [Inject]
     public void Resolve(GameSystemsManager systemsManager)
     {
 
