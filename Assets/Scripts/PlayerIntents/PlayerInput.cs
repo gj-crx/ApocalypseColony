@@ -8,8 +8,9 @@ using Unity.Netcode;
 using Units;
 using Factions;
 using Systems;
+using Systems.Installers;
 
-public class PlayerInput : NetworkBehaviour
+public class PlayerInput : NetworkBehaviour, IPlayerControllerInstaller
 {
 
     //SERVER SIDE ONLY VARIABLES
@@ -18,10 +19,13 @@ public class PlayerInput : NetworkBehaviour
      private UnitAISystem unitAI;
      private UnitModifyingSystem unitModifying;
 
-    [Inject]
+
     public void Resolve(GameSystemsManager systemsManager)
     {
-
+        dataBase = systemsManager.GetDataBase();
+        training = (TrainingSystem)systemsManager.GetSystem(typeof(TrainingSystem));
+        unitAI = (UnitAISystem)systemsManager.GetSystem(typeof(UnitAISystem));
+        unitModifying = (UnitModifyingSystem)systemsManager.GetSystem(typeof(UnitModifyingSystem));
     }
 
     [ServerRpc]
@@ -54,7 +58,6 @@ public class PlayerInput : NetworkBehaviour
             if (building.AbleToTrainUnits && building.ComponentTraining.AllowedUnitIDsToTrain.Contains(unitTypeIDToTrain))
             {
                 bool result = training.AddUnitToTrainingQueue(building, unitTypeIDToTrain, playerFaction.Resources);
-                Debug.Log(result);
             }
         }
     }

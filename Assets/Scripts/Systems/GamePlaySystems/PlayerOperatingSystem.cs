@@ -7,12 +7,13 @@ using Zenject;
 
 using Units;
 using System;
+using Systems.Installers;
 
 namespace Systems
 {
     public class PlayerOperatingSystem : GameSystem, ISystem
     {
-      
+        private GameSystemsManager systemsManager;
         private FactionOperatingSystem factionOperator;
 
         public PlayerOperatingSystem(GameSystemsManager systemsManager) : base(systemsManager) => Resolve(systemsManager);
@@ -20,6 +21,7 @@ namespace Systems
         {
             base.Resolve(systemsManager);
             factionOperator = (FactionOperatingSystem)systemsManager.GetSystem(typeof(FactionOperatingSystem));
+            this.systemsManager = systemsManager;
         }
 
         public void AddPlayer(Player playerToAdd, Game game)
@@ -27,6 +29,8 @@ namespace Systems
             //adding network data to player object
             playerToAdd.ConnectedGame = game;
             playerToAdd.PlayerID = playerToAdd.OwnerClientId;
+
+            playerToAdd.gameObject.GetComponent<IPlayerControllerInstaller>().Resolve(systemsManager);
 
             //updating rpc params
             game.ConnectedClientsParams = new ClientRpcParams();

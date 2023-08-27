@@ -29,10 +29,6 @@ public class Game : MonoBehaviour
     {
 
     }
-    private void Update()
-    {
-        Debug.Log(DataBase.GetSynchronizableObjects().Count.ToString() + " _ " + (DataBase.GetSynchronizableObjects() != null).ToString());
-    }
 
     private void Dispose()
     {

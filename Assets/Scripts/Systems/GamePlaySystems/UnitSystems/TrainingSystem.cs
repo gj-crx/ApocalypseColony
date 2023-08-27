@@ -24,8 +24,7 @@ namespace Systems
 
         public void TrainingQueueIteration(Unit trainingUnit)
         {
-            Debug.Log("training q iteraction " + trainingUnit.ComponentTraining.TrainingTimer);
-            if (trainingUnit.ComponentTraining.UnitTrainingQueue.Count > 0)
+            if (trainingUnit.ComponentTraining != null && trainingUnit.ComponentTraining.UnitTrainingQueue.Count > 0)
             {
                 if (trainingUnit.ComponentTraining.TrainingTimer > UnitTypesStorage.UnitTypes[trainingUnit.ComponentTraining.UnitTrainingQueue.Peek()].TrainingTime)
                 { //Enough time passed to train current unit

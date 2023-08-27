@@ -5,6 +5,7 @@ using UnityEngine;
 
 using Units;
 using Zenject;
+using System;
 
 namespace Systems
 {
@@ -37,10 +38,21 @@ namespace Systems
 
             while (isActive)
             {
-                Unit[] unitsToOperate = dataBase.Units.ToArray();
-                for (short i = 0; i < unitsToOperate.Length; i++)
+                try
                 {
-                    OnUnitOperated(GetNextUnit(i, unitsToOperate));
+                    Unit[] unitsToOperate = dataBase.Units.ToArray();
+                    for (short i = 0; i < unitsToOperate.Length; i++)
+                    {
+                        OnUnitOperated?.Invoke(GetNextUnit(i, unitsToOperate));
+                    }
+                }
+                catch(Exception exception)
+                {
+                    Debug.Log(dataBase == null);
+                    Debug.Log("allah " + (dataBase.Units.ToArray() == null).ToString());
+                    Debug.Log(GetNextUnit(0, dataBase.Units.ToArray()));
+                    Debug.Log(dataBase.Units.ToArray().Length);
+                    Debug.LogError("System iteraction cycle failed " + OnUnitOperated.Method.Name + exception);  
                 }
                 await Task.Delay(customTimeInterval);
             }

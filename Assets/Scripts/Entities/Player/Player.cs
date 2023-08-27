@@ -22,8 +22,8 @@ public class Player : NetworkBehaviour
     public static Player LocalPlayerObject = null;
 
 
-    [Inject]
-    private void Install()
+    //Local host assignment
+    private void Awake()
     {
         if (IsLocalPlayer || IsHost) LocalPlayerObject = this;
         Debug.Log("localplayer " + LocalPlayerObject);

@@ -15,12 +15,20 @@ namespace Systems
 
         public Unit SpawnNewUnit(short referenceUnitTypeID, Vector3 position)
         {
-            Unit newUnit = CloneUnit(UnitTypesStorage.UnitTypes[referenceUnitTypeID]);
-            dataBase.AddEntityToDataBase(newUnit);
-            newUnit.UnitID = dataBase.GetIndexOfStoredEntity(newUnit);
-            newUnit.Position = position;
+            try
+            {
+                Unit newUnit = CloneUnit(UnitTypesStorage.UnitTypes[referenceUnitTypeID]);
+                dataBase.AddEntityToDataBase(newUnit);
+                newUnit.UnitID = dataBase.GetIndexOfStoredEntity(newUnit);
+                newUnit.Position = position;
 
-            return newUnit;
+                return newUnit;
+            }
+            catch
+            {
+                Debug.LogError("Unit spawning failed!");
+                return null;
+            }
         }
         public Unit CloneUnit(Unit unitToCloneFrom)
         {

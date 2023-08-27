@@ -27,11 +27,9 @@ namespace Networking
         {
             while (dataBaseToSynchronize.IsKilled == false)
             {
-                Debug.Log("Sync process going on");
                 try
                 {
                     ISynchronizableObject[] synchronizableObjectsTempArray = dataBaseToSynchronize.GetSynchronizableObjects().ToArray();
-                    Debug.Log("Object to sync amount " + synchronizableObjectsTempArray.Length);
                     foreach (var objectToSync in synchronizableObjectsTempArray)
                     {
                         if (objectToSync.GetType() == typeof(Unit))

@@ -4,19 +4,25 @@ using UnityEngine;
 using UnityEngine.AI;
 
 using Zenject;
+using Systems.Installers;
 
 public class TestSimpleTool : MonoBehaviour
 {
     private PlayerInput playerInput;
 
-    [Inject]
-    private void Install(PlayerInput playerInput)
+    private void TryToStart()
     {
-        this.playerInput = playerInput;
+        if (playerInput != null) return;
+        try
+        {
+            playerInput = Player.LocalPlayerObject.GetComponent<IPlayerControllerInstaller>() as PlayerInput;
+        }
+        catch { }
     }
 
     void Update()
     {
+         TryToStart();
          if (Input.GetKey(KeyCode.E) && Input.GetMouseButtonDown(0)) ClickSpawnUnit();
          if (Input.GetKey(KeyCode.R) && Input.GetMouseButtonDown(0)) ClickOrderUnit();
          if (Input.GetKey(KeyCode.T) && Input.GetMouseButtonDown(0)) ClickTrainUnit();
