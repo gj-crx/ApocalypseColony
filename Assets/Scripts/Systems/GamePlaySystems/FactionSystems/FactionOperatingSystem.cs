@@ -11,13 +11,13 @@ namespace Systems
 {
     public class FactionOperatingSystem : GameSystem, ISystem
     {
-        private UnitModifyingSystem unitModifying;
+        private UnitSpawningSystem unitModifying;
 
         public FactionOperatingSystem(GameSystemsManager systemsManager) : base(systemsManager) => Resolve(systemsManager);
         protected override void Resolve(GameSystemsManager systemsManager)
         {
             base.Resolve(systemsManager);
-            unitModifying = (UnitModifyingSystem)systemsManager.GetSystem(typeof(UnitModifyingSystem));
+            unitModifying = (UnitSpawningSystem)systemsManager.GetSystem(typeof(UnitSpawningSystem));
         }
 
         public Faction SpawnNewFaction(short townhallUnitTypeID, Vector3 townhallPosition, Game gameToCreateIn, Player controllingPlayer = null)

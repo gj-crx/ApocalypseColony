@@ -8,10 +8,10 @@ using Zenject;
 
 namespace Systems
 {
-    public class UnitModifyingSystem : GameSystem, ISystem
+    public class UnitSpawningSystem : GameSystem, ISystem
     {
 
-        public UnitModifyingSystem(GameSystemsManager systemsManager) : base(systemsManager) => Resolve(systemsManager);
+        public UnitSpawningSystem(GameSystemsManager systemsManager) : base(systemsManager) => Resolve(systemsManager);
 
         public Unit SpawnNewUnit(short referenceUnitTypeID, Vector3 position)
         {
@@ -30,7 +30,7 @@ namespace Systems
                 return null;
             }
         }
-        public Unit CloneUnit(Unit unitToCloneFrom)
+        private Unit CloneUnit(Unit unitToCloneFrom)
         {
             Unit clonedUnit = new Unit()
             {

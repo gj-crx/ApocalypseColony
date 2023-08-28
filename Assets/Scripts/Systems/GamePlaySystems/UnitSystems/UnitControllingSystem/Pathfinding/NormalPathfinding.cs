@@ -36,6 +36,7 @@ namespace Systems.Pathfinding
             map = systemsManager.GetSystem(typeof(PathfindingMap)) as IPathfindingMap;
         }
 
+        public Vector3[] GetWayPathFromUnitOrder(Units.Unit movingUnit, byte MaximumCorrectionStep = 2) => GetWayPath(movingUnit.Position, movingUnit.CurrentOrder.TargetPosition, movingUnit.Body);
         public Vector3[] GetWayPath(Vector3 From, Vector3 Target, IBodyType bodyType, byte MaximumCorrectionStep = 2)
         {
             currentBodyType = bodyType;
@@ -57,7 +58,6 @@ namespace Systems.Pathfinding
             bool result = CalculateWay(from, target, bodyType);
             if (result) return TypeConversions.ConvertToVector3Array(way, 0, useZCord);
             else return null;
-
         }
 
         private bool CalculateWay(Vector2Int From, Vector2Int Target, IBodyType bodyType)

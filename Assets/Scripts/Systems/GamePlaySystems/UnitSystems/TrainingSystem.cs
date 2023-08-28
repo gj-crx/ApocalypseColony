@@ -3,13 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 
 using Units;
-using Zenject;
 
 namespace Systems
 {
     public class TrainingSystem : GameSystem, ISystem
     {
-        [Inject] private UnitModifyingSystem unitModifying;
+        private UnitSpawningSystem unitModifying;
 
         float timeStep = 1;
 
@@ -19,12 +18,12 @@ namespace Systems
         {
             base.Resolve(systemsManager);
             OnUnitOperated += TrainingQueueIteration;
-            unitModifying = (UnitModifyingSystem)systemsManager.GetSystem(typeof(UnitModifyingSystem));
+            unitModifying = (UnitSpawningSystem)systemsManager.GetSystem(typeof(UnitSpawningSystem));
         }
 
         public void TrainingQueueIteration(Unit trainingUnit)
         {
-            if (trainingUnit.ComponentTraining != null && trainingUnit.ComponentTraining.UnitTrainingQueue.Count > 0)
+            if (trainingUnit.AbleToTrainUnits && trainingUnit.ComponentTraining.UnitTrainingQueue.Count > 0)
             {
                 if (trainingUnit.ComponentTraining.TrainingTimer > UnitTypesStorage.UnitTypes[trainingUnit.ComponentTraining.UnitTrainingQueue.Peek()].TrainingTime)
                 { //Enough time passed to train current unit

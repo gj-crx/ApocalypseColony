@@ -17,7 +17,7 @@ public class PlayerInput : NetworkBehaviour, IPlayerControllerInstaller
      private IDataBase dataBase;
      private TrainingSystem training;
      private UnitAISystem unitAI;
-     private UnitModifyingSystem unitModifying;
+     private UnitSpawningSystem unitModifying;
 
 
     public void Resolve(GameSystemsManager systemsManager)
@@ -25,7 +25,7 @@ public class PlayerInput : NetworkBehaviour, IPlayerControllerInstaller
         dataBase = systemsManager.GetDataBase();
         training = (TrainingSystem)systemsManager.GetSystem(typeof(TrainingSystem));
         unitAI = (UnitAISystem)systemsManager.GetSystem(typeof(UnitAISystem));
-        unitModifying = (UnitModifyingSystem)systemsManager.GetSystem(typeof(UnitModifyingSystem));
+        unitModifying = (UnitSpawningSystem)systemsManager.GetSystem(typeof(UnitSpawningSystem));
     }
 
     [ServerRpc]

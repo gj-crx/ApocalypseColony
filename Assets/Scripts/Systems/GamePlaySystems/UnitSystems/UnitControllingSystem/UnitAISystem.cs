@@ -17,58 +17,24 @@ namespace Systems
     /// </summary>
     public class UnitAISystem : GameSystem, ISystem
     {
-        private IPathfinding pathfindingSubSystem;
+        private IPathfinding pathfinding;
         private Queue<Tuple<Unit, Unit.Order>> queuedOrders = new Queue<Tuple<Unit, Unit.Order>>();
         
         public UnitAISystem(GameSystemsManager systemsManager) : base(systemsManager) => Resolve(systemsManager);
         protected override void Resolve(GameSystemsManager systemsManager)
         {
             base.Resolve(systemsManager);
-            OnUnitOperated += OperateOrderQueue;
-            pathfindingSubSystem = systemsManager.GetSystem(typeof(NormalPathfinding)) as IPathfinding;
+            OnUnitOperated += OperateUnitBehavior;
+            pathfinding = systemsManager.GetSystem(typeof(NormalPathfinding)) as IPathfinding;
         }
 
-        public void OperateOrderQueue(Unit notOperatedUnit)
+        public void OperateUnitBehavior(Unit operatedUnit)
         {
-        //     IssueQueuedOrders();
-        //    OperateOngoingUnitOrders(timeIntervalInSeconds);
+            
         }
-
-        public void EnqueueNewOrder(Unit unit, Unit.Order order) => queuedOrders.Enqueue(new Tuple<Unit, Unit.Order>(unit, order));
-        /*
-        /// <summary>
-        /// Issues new orders to units when needed only
-        /// </summary>
-        private void IssueQueuedOrders()
+        public Unit GetNewTarget(Unit attackingUnit)
         {
-            while (queuedOrders.Count > 0)
-            {
-                var currentOrder = queuedOrders.Dequeue();
-                Debug.Log("Order dequeued" + currentOrder.Item2.Type);
 
-                if (currentOrder.Item2.Type == Unit.OrderType.AttackMove) UnitOrdersSubSystem.SetAttackMoveOrder(currentOrder.Item1, currentOrder.Item2.TargetPosition, unitsToOperate, pathfindingSubSystem);
-                if (currentOrder.Item2.Type == Unit.OrderType.AttackUnit) UnitOrdersSubSystem.SetUnitAttackOrder(currentOrder.Item1, currentOrder.Item2.TargetUnit, pathfindingSubSystem);
-                if (currentOrder.Item2.Type == Unit.OrderType.MoveToPosition) UnitOrdersSubSystem.SetMoveOrder(currentOrder.Item1, currentOrder.Item2.TargetPosition, pathfindingSubSystem);
-
-                currentOrder.Item1.CurrentOrder = currentOrder.Item2;
-                Debug.Log("ordering finished");
-            }
         }
-        /// <summary>
-        /// Just supports ongoing unit orders, does not implements any new orders
-        /// </summary>
-        private void OperateOngoingUnitOrders(float timeIntervalInSeconds)
-        {
-            foreach (var operatedUnit in unitsToOperate)
-            {
-                if (operatedUnit.CurrentOrder != null)
-                {
-                    if (operatedUnit.CurrentOrder.Type == Unit.OrderType.OnAlarm) UnitOrdersSubSystem.AttackEnemiesInRange(operatedUnit, unitsToOperate, pathfindingSubSystem);
-                    if (operatedUnit.CurrentOrder.Type == Unit.OrderType.Hold) UnitOrdersSubSystem.AttackEnemiesInRange(operatedUnit, unitsToOperate, pathfindingSubSystem, true);
-                    if (operatedUnit.CurrentOrder.Type == Unit.OrderType.AttackMove) UnitOrdersSubSystem.AttackEnemiesInRange(operatedUnit, unitsToOperate, pathfindingSubSystem);
-                }
-            }
-        }
-        */
     }
 }

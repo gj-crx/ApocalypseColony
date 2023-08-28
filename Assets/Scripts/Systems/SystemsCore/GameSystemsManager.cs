@@ -34,11 +34,12 @@ namespace Systems
             AddNewSystem(new NormalPathfinding(this));
             AddNewSystem(new HealthSystem(this));
             AddNewSystem(new BuildingOperatingSystem(this));
-            AddNewSystem(new UnitModifyingSystem(this));
+            AddNewSystem(new UnitSpawningSystem(this));
             AddNewSystem(new UnitAISystem(this));
             AddNewSystem(new FactionOperatingSystem(this));
             AddNewSystem(new PlayerOperatingSystem(this));
             AddNewSystem(new TrainingSystem(this));
+            AddNewSystem(new UnitOrderProcessingSystem(this));
 
             foreach (var system in  gameToInstall.GameSystems) Task.Run(() => system.SystemIterationCycle());
         }
