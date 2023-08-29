@@ -4,6 +4,7 @@ using UnityEngine;
 
 namespace Units
 {
+    [CreateAssetMenu(fileName = "UnitType", menuName = "ScriptableObjects/UnitType", order = 1)]
     public class UnitType : ScriptableObject
     {
         public string UnitName = "Unnamed unit";
@@ -24,8 +25,10 @@ namespace Units
         //Specialized stats
         public float TimeNeededToTrainThisUnit = 10;
         public List<float> ResourceCostToTrain = new List<float>(5);
-        public float JobEfficiency = 1.0f;
 
         public Pathfinding.BodyType BodyType;
+
+        //Component for redacting stats
+        public UnitTrainingComponent trainingComponent;
     }
 }

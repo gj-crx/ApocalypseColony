@@ -70,7 +70,7 @@ namespace Systems
             if (clonedUnit.AbleToTrainUnits)
             {
                 clonedUnit.ComponentTraining = new UnitTrainingComponent();
-                clonedUnit.ComponentTraining.CopyStatsFrom(unitToCloneFrom.ComponentTraining);
+                clonedUnit.ComponentTraining.CopyStatsFrom(unitType.trainingComponent);
             }
 
             return clonedUnit;

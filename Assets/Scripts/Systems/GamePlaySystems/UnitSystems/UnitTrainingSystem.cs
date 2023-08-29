@@ -25,14 +25,14 @@ namespace Systems
         {
             if (trainingUnit.AbleToTrainUnits && trainingUnit.ComponentTraining.UnitTrainingQueue.Count > 0)
             {
-                if (trainingUnit.ComponentTraining.TrainingTimer > UnitTypesStorage.UnitTypes[trainingUnit.ComponentTraining.UnitTrainingQueue.Peek()].TimeNeededToTrainThisUnit)
+                if (trainingUnit.ComponentTraining.CurrentTrainingTimer > UnitTypesStorage.UnitTypes[trainingUnit.ComponentTraining.UnitTrainingQueue.Peek()].TimeNeededToTrainThisUnit)
                 { //Enough time passed to train current unit
                     unitModifying.SpawnNewUnit(trainingUnit.ComponentTraining.UnitTrainingQueue.Dequeue(),
-                        trainingUnit.Position + trainingUnit.ComponentTraining.UnitSpawningPositionOffset);
+                        trainingUnit.Position + trainingUnit.ComponentTraining.UnitSpawningOffset);
 
-                    trainingUnit.ComponentTraining.TrainingTimer = 0;
+                    trainingUnit.ComponentTraining.CurrentTrainingTimer = 0;
                 }
-                else trainingUnit.ComponentTraining.TrainingTimer += timeStep * trainingUnit.ComponentTraining.TrainingSpeed;
+                else trainingUnit.ComponentTraining.CurrentTrainingTimer += timeStep * trainingUnit.ComponentTraining.TrainingSpeed;
             }
         }
 

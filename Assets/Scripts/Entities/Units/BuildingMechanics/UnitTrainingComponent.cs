@@ -14,19 +14,19 @@ namespace Units
         public List<short> AllowedUnitIDsToTrain = new List<short>();
 
         public Queue<short> UnitTrainingQueue = new Queue<short>();
-        public float TrainingTimer = 0;
-        public Vector3 UnitSpawningPositionOffset { get { return unitSpawningPositionOffset; } }
-
-
+        public Vector3 UnitSpawningOffset { get { return unitSpawningOffset; } }
         [SerializeField]
-        private Vector3 unitSpawningPositionOffset = new Vector3(1, 0, 1);
-        
+        private Vector3 unitSpawningOffset = new Vector3(1, 0, 1);
+
+        //
+        [HideInInspector] public float CurrentTrainingTimer = 0;
+
         public void CopyStatsFrom(UnitTrainingComponent from)
         {
             TrainingSpeed = from.TrainingSpeed;
             AllowedUnitIDsToTrain = from.AllowedUnitIDsToTrain;
 
-            unitSpawningPositionOffset = from.unitSpawningPositionOffset;
+            unitSpawningOffset = from.unitSpawningOffset;
         }
        
     }
