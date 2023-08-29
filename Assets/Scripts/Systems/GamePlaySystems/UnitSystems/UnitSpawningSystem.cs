@@ -17,7 +17,7 @@ namespace Systems
         {
             try
             {
-                Unit newUnit = CloneUnit(UnitTypesStorage.UnitTypes[referenceUnitTypeID]);
+                Unit newUnit = CreateNewUnitFromType(UnitTypesStorage.UnitTypes[referenceUnitTypeID]);
                 dataBase.AddEntityToDataBase(newUnit);
                 newUnit.UnitID = dataBase.GetIndexOfStoredEntity(newUnit);
                 newUnit.Position = position;
@@ -30,27 +30,33 @@ namespace Systems
                 return null;
             }
         }
-        private Unit CloneUnit(Unit unitToCloneFrom)
+        private Unit CreateNewUnitFromType(UnitType unitType)
         {
             Unit clonedUnit = new Unit()
             {
-                UnitTypeID = unitToCloneFrom.UnitTypeID,
+                UnitTypeID = unitType.UnitTypeID,
 
-                UnitName = unitToCloneFrom.UnitName,
-                Class = unitToCloneFrom.Class,
-                Position = unitToCloneFrom.Position,
+                //general information
+                UnitName = unitType.UnitName,
+                Class = unitType.Class,
+                Position = Vector3.zero,
                 IsActive = true,
-                MoveSpeed = unitToCloneFrom.MoveSpeed,
-                Damage = unitToCloneFrom.Damage,
-                AttackRange = unitToCloneFrom.AttackRange,
-                AttackInterval = unitToCloneFrom.AttackInterval,
-                MaxHP = unitToCloneFrom.MaxHP,
-                RegenerationRate = unitToCloneFrom.RegenerationRate,
-                Body = unitToCloneFrom.Body,
+                //general stats
+                MoveSpeed = unitType.MoveSpeed,
+                Damage = unitType.Damage,
+                AttackRange = unitType.AttackRange,
+                AttackInterval = unitType.AttackInterval,
+                MaxHP = unitType.MaxHP,
+                RegenerationRate = unitType.RegenerationRate,
+                //specialized stats
+                Body = BodyTypes.Body1X.GetBodyType(unitType.BodyType),
+                TimeNeededToTrainThisUnit = unitType.TimeNeededToTrainThisUnit,
+                ResourceCostToTrain = unitType.ResourceCostToTrain,
 
-                AbleToAttack = unitToCloneFrom.AbleToAttack,                
-                AbleToMove = unitToCloneFrom.AbleToMove,
-                AbleToTrainUnits = unitToCloneFrom.AbleToTrainUnits
+                //possibilities 
+                AbleToAttack = unitType.AbleToAttack,                
+                AbleToMove = unitType.AbleToMove,
+                AbleToTrainUnits = unitType.AbleToTrainUnits
             };
 
             if (clonedUnit.AbleToAttack)
@@ -70,5 +76,45 @@ namespace Systems
             return clonedUnit;
 
         }
+        /*     private Unit CloneUnitDeprecated(Unit unitToCloneFrom)
+             {
+                 Unit clonedUnit = new Unit()
+                 {
+                     UnitTypeID = unitToCloneFrom.UnitTypeID,
+
+                     UnitName = unitToCloneFrom.UnitName,
+                     Class = unitToCloneFrom.Class,
+                     Position = unitToCloneFrom.Position,
+                     IsActive = true,
+                     MoveSpeed = unitToCloneFrom.MoveSpeed,
+                     Damage = unitToCloneFrom.Damage,
+                     AttackRange = unitToCloneFrom.AttackRange,
+                     AttackInterval = unitToCloneFrom.AttackInterval,
+                     MaxHP = unitToCloneFrom.MaxHP,
+                     RegenerationRate = unitToCloneFrom.RegenerationRate,
+                     Body = unitToCloneFrom.Body,
+
+                     AbleToAttack = unitToCloneFrom.AbleToAttack,
+                     AbleToMove = unitToCloneFrom.AbleToMove,
+                     AbleToTrainUnits = unitToCloneFrom.AbleToTrainUnits
+                 };
+
+                 if (clonedUnit.AbleToAttack)
+                 {
+                     clonedUnit.ComponentAttacking = new AttackingComponent();
+                 }
+                 if (clonedUnit.AbleToMove)
+                 {
+                     clonedUnit.ComponentMovement = new UnitMovementComponent();
+                 }
+                 if (clonedUnit.AbleToTrainUnits)
+                 {
+                     clonedUnit.ComponentTraining = new UnitTrainingComponent();
+                     clonedUnit.ComponentTraining.CopyStatsFrom(unitToCloneFrom.ComponentTraining);
+                 }
+
+                 return clonedUnit;
+
+            }*/
     }
 }

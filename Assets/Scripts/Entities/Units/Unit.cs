@@ -18,7 +18,6 @@ namespace Units
         public bool IsActive = true;
 
         //NetInfo
-    //    [HideInInspector] public Game CurrentGame { get; set; } = null;
         [HideInInspector] public int UnitID = 0;
         public short UnitTypeID = 0;
 
@@ -35,24 +34,18 @@ namespace Units
         public float MaxHP = 100;
         public float RegenerationRate = 1;
 
+        //Possibilities
         public bool AbleToMove = true;
         public bool AbleToAttack = true;
         public bool AbleToTrainUnits = true;
-
-        public float TrainingTime = 10;
-        public List<float> ResourceCostToTrain = new List<float>(5);
-
         public IBodyType Body;
+
+        public float TimeNeededToTrainThisUnit = 10;
+        public List<float> ResourceCostToTrain = new List<float>(5);
 
         //internal stat properties
         protected float currentHP = 100;
         protected Order currentOrder = null;
-        [SerializeField] protected BodyType bodyType;
-
-        public Unit()
-        {
-            Body = Body1X.GetBodyType(bodyType);
-        }
 
         public float CurrentHP
         {

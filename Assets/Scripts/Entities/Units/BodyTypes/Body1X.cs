@@ -3,7 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-namespace Pathfinding
+using Pathfinding;
+
+namespace BodyTypes
 {
     [System.Serializable]
     public class Body1X : IBodyType

@@ -38,8 +38,9 @@ namespace Systems
             AddNewSystem(new UnitAISystem(this));
             AddNewSystem(new FactionOperatingSystem(this));
             AddNewSystem(new PlayerOperatingSystem(this));
-            AddNewSystem(new TrainingSystem(this));
+            AddNewSystem(new UnitTrainingSystem(this));
             AddNewSystem(new UnitOrderProcessingSystem(this));
+            AddNewSystem(new UnitFightingSystem(this));
 
             foreach (var system in  gameToInstall.GameSystems) Task.Run(() => system.SystemIterationCycle());
         }

@@ -17,6 +17,7 @@ namespace Systems
     /// </summary>
     public class UnitAISystem : GameSystem, ISystem
     {
+        private GameDataBase dataBase;
         private IPathfinding pathfinding;
         private Queue<Tuple<Unit, Unit.Order>> queuedOrders = new Queue<Tuple<Unit, Unit.Order>>();
         
@@ -26,15 +27,26 @@ namespace Systems
             base.Resolve(systemsManager);
             OnUnitOperated += OperateUnitBehavior;
             pathfinding = systemsManager.GetSystem(typeof(NormalPathfinding)) as IPathfinding;
+            dataBase = systemsManager.GetDataBase();
         }
-
         public void OperateUnitBehavior(Unit operatedUnit)
         {
             
         }
         public Unit GetNewTarget(Unit attackingUnit)
         {
-
+            Unit newTarget = null;
+            float minimalDistanceToTarget = 100;
+            foreach (var possibleTarget in dataBase.Units.ToArray())
+            {
+                float distanceToCurrentTarget = Vector3.Distance(attackingUnit.Position, possibleTarget.Position);
+                if (possibleTarget != attackingUnit && distanceToCurrentTarget < minimalDistanceToTarget)
+                {
+                    newTarget = possibleTarget;
+                    minimalDistanceToTarget = distanceToCurrentTarget;
+                }
+            }
+            return newTarget;
         }
     }
 }

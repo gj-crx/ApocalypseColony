@@ -25,37 +25,35 @@ namespace Systems
 
         public void OperateUnitOrders(Unit operatedUnit)
         {
-            if (operatedUnit.CurrentOrder != null)
-            {
-                Unit.Order currentOrder = operatedUnit.CurrentOrder;
+            if (operatedUnit.CurrentOrder == null) return;
 
-                //check if target there is a target
-                if (CheckIfAbleToAttackTargets(operatedUnit, currentOrder))
-                { //checking if unit is able to attack target right away
-                    if (Vector3.Distance(operatedUnit.Position, currentOrder.TargetUnit.Position) < operatedUnit.AttackRange)
-                    { //Target in range
-                        unitFighting.Hit(operatedUnit.ComponentAttacking.CurrentTarget);
+            Unit.Order currentOrder = operatedUnit.CurrentOrder;
+
+            //check if target there is a target
+            if (CheckIfAbleToAttackTargets(operatedUnit, currentOrder))
+            { //checking if unit is able to attack target right away
+                if (Vector3.Distance(operatedUnit.Position, currentOrder.TargetUnit.Position) < operatedUnit.AttackRange)
+                { //Target in range
+                    unitFighting.Hit(operatedUnit, operatedUnit.ComponentAttacking.CurrentTarget);
+                    return;
+                }
+                else if (operatedUnit.AbleToMove)
+                { //Target not in range, trying to get closer to it
+                    var wayToTarget = pathfinding.GetWayPathFromUnitOrder(operatedUnit);
+                    //checking if there is a way to get to the target
+                    if (wayToTarget != null)
+                    {
+                        operatedUnit.ComponentMovement.SetNewWay(wayToTarget, operatedUnit.Position);
                         return;
-                    } 
-                    else if (operatedUnit.AbleToMove)
-                    { //Target not in range, trying to get closer to it
-                        var wayToTarget = pathfinding.GetWayPathFromUnitOrder(operatedUnit);
-                        //checking if there is a way to get to the target
-                        if (wayToTarget != null) 
-                        {
-                            operatedUnit.ComponentMovement.SetNewWay(wayToTarget, operatedUnit.Position);
-                            return;
-                        }
-                        else
-                        { //target is unreachable, continuing moving orders if there are them
+                    }
+                    else
+                    { //target is unreachable, continuing moving orders if there are them
 
-                        }
                     }
                 }
-
-                //Move orders being executed if there are no priority targets
-                OperateMovingOrders(operatedUnit, currentOrder);
             }
+            //Move orders being executed if there are no priority targets
+            OperateMovingOrders(operatedUnit, currentOrder);
         }
         private bool CheckIfAbleToAttackTargets(Unit operatedUnit, Unit.Order currentOrder)
         {

@@ -5,9 +5,9 @@ using UnityEngine;
 namespace Units {
     public class UnitTypesStorage : MonoBehaviour
     {
-        public static List<Unit> UnitTypes;
+        public static List<UnitType> UnitTypes;
 
-        [SerializeField] private List<Unit> unitTypes;
+        [SerializeField] private List<UnitType> unitTypes;
         private 
 
         void Start()
@@ -15,7 +15,7 @@ namespace Units {
             UnitTypes = unitTypes;
         }
 
-        public static Unit GetUnitByClass(Unit.UnitClassification classToSearch)
+        public static UnitType GetUnitByClass(Unit.UnitClassification classToSearch)
         {
             foreach (var unit in UnitTypes)
             {

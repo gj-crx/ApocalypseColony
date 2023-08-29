@@ -6,14 +6,14 @@ using Units;
 
 namespace Systems
 {
-    public class TrainingSystem : GameSystem, ISystem
+    public class UnitTrainingSystem : GameSystem, ISystem
     {
         private UnitSpawningSystem unitModifying;
 
         float timeStep = 1;
 
 
-        public TrainingSystem(GameSystemsManager systemsManager) : base(systemsManager) => Resolve(systemsManager);
+        public UnitTrainingSystem(GameSystemsManager systemsManager) : base(systemsManager) => Resolve(systemsManager);
         protected override void Resolve(GameSystemsManager systemsManager)
         {
             base.Resolve(systemsManager);
@@ -25,7 +25,7 @@ namespace Systems
         {
             if (trainingUnit.AbleToTrainUnits && trainingUnit.ComponentTraining.UnitTrainingQueue.Count > 0)
             {
-                if (trainingUnit.ComponentTraining.TrainingTimer > UnitTypesStorage.UnitTypes[trainingUnit.ComponentTraining.UnitTrainingQueue.Peek()].TrainingTime)
+                if (trainingUnit.ComponentTraining.TrainingTimer > UnitTypesStorage.UnitTypes[trainingUnit.ComponentTraining.UnitTrainingQueue.Peek()].TimeNeededToTrainThisUnit)
                 { //Enough time passed to train current unit
                     unitModifying.SpawnNewUnit(trainingUnit.ComponentTraining.UnitTrainingQueue.Dequeue(),
                         trainingUnit.Position + trainingUnit.ComponentTraining.UnitSpawningPositionOffset);
@@ -43,7 +43,7 @@ namespace Systems
             //check if this building can train this type of a unit
             if (trainingUnit.ComponentTraining.AllowedUnitIDsToTrain.Contains(unitTypeIDToTrain) == false) return false;
 
-            Unit unitToTrainType = UnitTypesStorage.UnitTypes[unitTypeIDToTrain];
+            UnitType unitToTrainType = UnitTypesStorage.UnitTypes[unitTypeIDToTrain];
             CheckResourceStoragesCompatability(resourceStorage, unitToTrainType.ResourceCostToTrain);
 
             //check if it is enough resources

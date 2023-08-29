@@ -15,7 +15,7 @@ public class PlayerInput : NetworkBehaviour, IPlayerControllerInstaller
 
     //SERVER SIDE ONLY VARIABLES
      private IDataBase dataBase;
-     private TrainingSystem training;
+     private UnitTrainingSystem training;
      private UnitAISystem unitAI;
      private UnitSpawningSystem unitModifying;
 
@@ -23,7 +23,7 @@ public class PlayerInput : NetworkBehaviour, IPlayerControllerInstaller
     public void Resolve(GameSystemsManager systemsManager)
     {
         dataBase = systemsManager.GetDataBase();
-        training = (TrainingSystem)systemsManager.GetSystem(typeof(TrainingSystem));
+        training = (UnitTrainingSystem)systemsManager.GetSystem(typeof(UnitTrainingSystem));
         unitAI = (UnitAISystem)systemsManager.GetSystem(typeof(UnitAISystem));
         unitModifying = (UnitSpawningSystem)systemsManager.GetSystem(typeof(UnitSpawningSystem));
     }
@@ -42,7 +42,7 @@ public class PlayerInput : NetworkBehaviour, IPlayerControllerInstaller
         Debug.Log("order recieved " + controlledUnit.UnitName + " target position " + targetPosition);
 
         //Gets the reference to the ordering system, instantiates new order and enqueues it to the system
-         unitAI.EnqueueNewOrder(controlledUnit, new Unit.Order { Type = Unit.OrderType.MoveToPosition, TargetPosition = targetPosition });
+        controlledUnit.CurrentOrder = new Unit.Order() { Type = Unit.OrderType.MoveToPosition, TargetPosition = targetPosition };
     }
     [ServerRpc]
     public void OrderTrainingOfANewUnitServerRpc(short unitTypeIDToTrain, short playerFactionID)
