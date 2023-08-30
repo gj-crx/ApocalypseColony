@@ -5,7 +5,7 @@ using UnityEngine;
 namespace Units
 {
     [System.Serializable]
-    public class UnitMovementComponent
+    public class UnitMovementComponent : IUnitComponent
     {
         public bool HasLocalWay { get { return localWay != null; } }
 
@@ -65,7 +65,11 @@ namespace Units
 
             return newPosition;
         }
+        public void CopyStatsFrom(IUnitComponent from)
+        {
+            var copyFrom = from as UnitMovementComponent;
 
-        
+        }
+
     }
 }

@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Units {
     [System.Serializable]
-    public class AttackingComponent
+    public class UnitAttackingComponent : IUnitComponent
     {
         [HideInInspector] public Unit CurrentTarget = null;
         public float CurrentAttackDelay
@@ -15,5 +15,11 @@ namespace Units {
         }
 
         private int currentAttackDelayMiliseconds = 0;
+
+        public void CopyStatsFrom(IUnitComponent from)
+        {
+            var copyFrom = from as UnitAttackingComponent;
+
+        }
     }
 }

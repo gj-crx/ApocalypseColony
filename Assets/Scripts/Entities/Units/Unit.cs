@@ -23,7 +23,7 @@ namespace Units
 
         //Optional unit components
         public UnitMovementComponent ComponentMovement = null;
-        public AttackingComponent ComponentAttacking = null;
+        public UnitAttackingComponent ComponentAttacking = null;
         public UnitTrainingComponent ComponentTraining = null;
 
         //Public stat properties

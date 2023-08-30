@@ -12,6 +12,7 @@ namespace Systems
     public abstract class GameSystem
     {
         public bool IsActive { set { isActive = value; } }
+        public bool DebugLoggingActive = true;
 
         public delegate void UnitOperation(Unit operetaedUnit);
         public UnitOperation OnUnitOperated;
@@ -31,10 +32,11 @@ namespace Systems
             dataBase = systemsManager.GetDataBase();
         }
 
-        public async void SystemIterationCycle(int customTimeInterval = -1)
+        public async void SystemIterationCycle(int customTimeIntervalInMiliseconds = -1)
         {
-            if (customTimeInterval != -1) timeIntervalInSeconds = customTimeInterval / 1000f;
-            else customTimeInterval = (int)(timeIntervalInSeconds * 1000);
+            //-1 equals base value unchanged, so system supposed to use it's hardcoded value of a timeIntervalInSeconds, but it has to be converted to miliseconds first
+            if (customTimeIntervalInMiliseconds != -1) timeIntervalInSeconds = customTimeIntervalInMiliseconds; //using custom interval
+            else customTimeIntervalInMiliseconds = (int)(timeIntervalInSeconds * 1000); //using hardcoded interval but converted to miliseconds
 
             while (isActive)
             {
@@ -43,22 +45,27 @@ namespace Systems
                     Unit[] unitsToOperate = dataBase.Units.ToArray();
                     for (short i = 0; i < unitsToOperate.Length; i++)
                     {
-                        OnUnitOperated?.Invoke(GetNextUnit(i, unitsToOperate));
+                        OnUnitOperated?.Invoke(GetNextUnitOfDataBaseToOperate(i, unitsToOperate));
                     }
                 }
                 catch(Exception exception)
                 {
                     Debug.Log(dataBase == null);
                     Debug.Log("allah " + (dataBase.Units.ToArray() == null).ToString());
-                    Debug.Log(GetNextUnit(0, dataBase.Units.ToArray()));
+                    Debug.Log(GetNextUnitOfDataBaseToOperate(0, dataBase.Units.ToArray()));
                     Debug.Log(dataBase.Units.ToArray().Length);
                     Debug.LogError("System iteraction cycle failed " + OnUnitOperated.Method.Name + exception);  
                 }
-                await Task.Delay(customTimeInterval);
+                await Task.Delay(customTimeIntervalInMiliseconds);
             }
         }
-
-        private Unit GetNextUnit(short nextPossibleUnitIndex, Unit[] unitsToOperate)
+        protected void Log(string logInfoToShow, bool warning = false)
+        {
+            if (DebugLoggingActive == false) return;
+            if (warning == false) Debug.Log(logInfoToShow);
+            else Debug.LogWarning(logInfoToShow);
+        }
+        private Unit GetNextUnitOfDataBaseToOperate(short nextPossibleUnitIndex, Unit[] unitsToOperate)
         {
             Unit nextUnit = null;
             try

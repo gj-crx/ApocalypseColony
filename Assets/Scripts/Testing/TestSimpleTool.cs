@@ -45,7 +45,7 @@ public class TestSimpleTool : MonoBehaviour
     }
     private void ClickTrainUnit()
     {
-        playerInput.OrderTrainingOfANewUnitServerRpc(0, (short)Player.LocalPlayerObject.PlayerGameplayObjectID);
+        playerInput.OrderTrainingOfANewUnitServerRpc(1, (short)Player.LocalPlayerObject.PlayerGameplayObjectID);
     }
     private void TestServerPing()
     {

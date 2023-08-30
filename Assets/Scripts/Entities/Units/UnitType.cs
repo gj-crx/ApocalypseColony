@@ -29,6 +29,8 @@ namespace Units
         public Pathfinding.BodyType BodyType;
 
         //Component for redacting stats
-        public UnitTrainingComponent trainingComponent;
+        public UnitMovementComponent ComponentMovement = null;
+        public UnitAttackingComponent ComponentAttacking = null;
+        public UnitTrainingComponent ComponentTraining = null;
     }
 }

@@ -8,7 +8,7 @@ namespace Units
     /// Can train new units
     /// </summary>
     [System.Serializable]
-    public class UnitTrainingComponent
+    public class UnitTrainingComponent : IUnitComponent
     {
         public float TrainingSpeed = 1.0f;
         public List<short> AllowedUnitIDsToTrain = new List<short>();
@@ -21,12 +21,13 @@ namespace Units
         //
         [HideInInspector] public float CurrentTrainingTimer = 0;
 
-        public void CopyStatsFrom(UnitTrainingComponent from)
+        public void CopyStatsFrom(IUnitComponent from)
         {
-            TrainingSpeed = from.TrainingSpeed;
-            AllowedUnitIDsToTrain = from.AllowedUnitIDsToTrain;
+            UnitTrainingComponent copyFrom = from as UnitTrainingComponent;
+            TrainingSpeed = copyFrom.TrainingSpeed;
+            AllowedUnitIDsToTrain = copyFrom.AllowedUnitIDsToTrain;
 
-            unitSpawningOffset = from.unitSpawningOffset;
+            unitSpawningOffset = copyFrom.unitSpawningOffset;
         }
        
     }

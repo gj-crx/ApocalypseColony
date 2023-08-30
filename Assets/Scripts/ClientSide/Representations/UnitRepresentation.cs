@@ -31,6 +31,8 @@ namespace Units.ClientSide {
             newUnitRepresentation.UnitID = unitToCreateData.UnitID;
             newUnitRepresentation.LastUpdatedPosition = unitToCreateData.Position;
 
+            newUnitRepresentation.gameObject.name = UnitTypesStorage.UnitTypes[unitToCreateData.UnitTypeID].UnitName + unitToCreateData.UnitID.ToString();
+
             ClientDataBase.Singleton.AddEntityToDataBase(newUnitRepresentation);
             Debug.Log("Unit recieved " + unitToCreateData.UnitID);
         }

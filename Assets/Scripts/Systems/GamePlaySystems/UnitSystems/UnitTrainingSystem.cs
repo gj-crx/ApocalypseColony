@@ -23,6 +23,7 @@ namespace Systems
 
         public void TrainingQueueIteration(Unit trainingUnit)
         {
+            Log("training q iteration");
             if (trainingUnit.AbleToTrainUnits && trainingUnit.ComponentTraining.UnitTrainingQueue.Count > 0)
             {
                 if (trainingUnit.ComponentTraining.CurrentTrainingTimer > UnitTypesStorage.UnitTypes[trainingUnit.ComponentTraining.UnitTrainingQueue.Peek()].TimeNeededToTrainThisUnit)

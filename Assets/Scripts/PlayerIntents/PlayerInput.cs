@@ -53,13 +53,15 @@ public class PlayerInput : NetworkBehaviour, IPlayerControllerInstaller
         try { playerFaction = (Faction)dataBase.GetEntity(playerFactionID, typeof(Faction)); }
         catch { Debug.LogError("Faction not found!"); }
 
+        bool result = false;
         foreach (var building in playerFaction.Buildings)
         {
             if (building.AbleToTrainUnits && building.ComponentTraining.AllowedUnitIDsToTrain.Contains(unitTypeIDToTrain))
             {
-                bool result = training.AddUnitToTrainingQueue(building, unitTypeIDToTrain, playerFaction.Resources);
+                result = training.AddUnitToTrainingQueue(building, unitTypeIDToTrain, playerFaction.Resources);
             }
         }
+        if (result == false) Debug.Log("Proper building to train unit " + unitTypeIDToTrain + " not found! ");
     }
 
 

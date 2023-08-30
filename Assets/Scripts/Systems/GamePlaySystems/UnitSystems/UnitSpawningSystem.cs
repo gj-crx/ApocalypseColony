@@ -61,16 +61,18 @@ namespace Systems
 
             if (clonedUnit.AbleToAttack)
             {
-                clonedUnit.ComponentAttacking = new AttackingComponent();
+                clonedUnit.ComponentAttacking = new UnitAttackingComponent();
+                clonedUnit.ComponentAttacking.CopyStatsFrom(unitType.ComponentAttacking);
             }
             if (clonedUnit.AbleToMove)
             {
                 clonedUnit.ComponentMovement = new UnitMovementComponent();
+                clonedUnit.ComponentMovement.CopyStatsFrom(unitType.ComponentMovement);
             }
             if (clonedUnit.AbleToTrainUnits)
             {
                 clonedUnit.ComponentTraining = new UnitTrainingComponent();
-                clonedUnit.ComponentTraining.CopyStatsFrom(unitType.trainingComponent);
+                clonedUnit.ComponentTraining.CopyStatsFrom(unitType.ComponentTraining);
             }
 
             return clonedUnit;
