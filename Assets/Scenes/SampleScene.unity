@@ -1036,8 +1036,8 @@ MonoBehaviour:
   playerNetObjectPrefab: {fileID: 6998470939605222950, guid: a6794ace46edcaf47af8bd447b617eba, type: 3}
   factionPrefab: {fileID: 5454143671846587528, guid: 8c4aa2864f9f0c2479d5a8053ac4531b, type: 3}
   unitRepresentationPrefabs:
-  - {fileID: 8389147125064831579, guid: 1dd1d36c694b1864ca8d92fbca084f24, type: 3}
   - {fileID: 2559505222354439153, guid: 70e536884d824d347ac48d53778408b8, type: 3}
+  - {fileID: 8389147125064831579, guid: 1dd1d36c694b1864ca8d92fbca084f24, type: 3}
 --- !u!114 &1546660319
 MonoBehaviour:
   m_ObjectHideFlags: 0

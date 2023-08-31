@@ -16,11 +16,13 @@ namespace Units
 
 
 
-        public void SetNewWay(Vector3[] newWay, Vector3 currentUnitPosition)
+        public bool SetNewWay(Vector3[] newWay, Vector3 currentUnitPosition)
         {
+            if (newWay.Length < 2) return false;
             localWay = newWay;
             currentDistance = 1;
             currentDirection = GetDirection(currentUnitPosition, true);
+            return true;
         }
 
         private Vector3 GetDirection(Vector3 currentPosition, bool useZCordInsteadOfY)

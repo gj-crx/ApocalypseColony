@@ -13,6 +13,8 @@ namespace Systems
     {
         [SerializeField]
         private List<string> systemsToDeactivateInNewGame = new List<string>();
+        [SerializeField]
+        private List<string> systemsToActivateDebugLogging = new List<string>();
 
         private static List<string> systemsToDeactivate = new List<string>();
         private Game associatedGame;
@@ -42,6 +44,7 @@ namespace Systems
             AddNewSystem(new UnitOrderProcessingSystem(this));
             AddNewSystem(new UnitFightingSystem(this));
 
+            ActivateDebugLogging();
             foreach (var system in  gameToInstall.GameSystems) Task.Run(() => system.SystemIterationCycle());
         }
         public object GetSystem(Type systemType)
@@ -55,6 +58,20 @@ namespace Systems
         }
         public GameDataBase GetDataBase() => (GameDataBase)associatedGame.DataBase;
 
+        private void ActivateDebugLogging()
+        {
+            foreach (string systemName in systemsToActivateDebugLogging)
+            {
+                foreach (var system in associatedGame.GameSystems)
+                {
+                    if (system.GetType().Name == systemName)
+                    {
+                        (system as GameSystem).DebugLoggingActive = true;
+                        break;
+                    }
+                }
+            }
+        }
         private void AddNewSystem(object newSystemObject)
         {
             if (systemsToDeactivate.Contains(newSystemObject.GetType().Name) == false)

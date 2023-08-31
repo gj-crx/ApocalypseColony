@@ -32,8 +32,150 @@ MonoBehaviour:
   - 0
   - 0
   BodyType: 0
-  trainingComponent:
+  ComponentMovement:
+    localWay: []
+    currentDirection: {x: 0, y: 0, z: 0}
+    currentDistance: 1
+  ComponentAttacking:
+    CurrentTarget:
+      UnitName: Unnamed unit
+      Class: 0
+      Position: {x: 0, y: 0, z: 0}
+      IsActive: 1
+      UnitID: 0
+      UnitTypeID: 0
+      ComponentMovement:
+        localWay: []
+        currentDirection: {x: 0, y: 0, z: 0}
+        currentDistance: 1
+      ComponentAttacking:
+        CurrentTarget:
+          UnitName: Unnamed unit
+          Class: 0
+          Position: {x: 0, y: 0, z: 0}
+          IsActive: 1
+          UnitID: 0
+          UnitTypeID: 0
+          ComponentMovement:
+            localWay: []
+            currentDirection: {x: 0, y: 0, z: 0}
+            currentDistance: 1
+          ComponentAttacking:
+            CurrentTarget:
+              UnitName: Unnamed unit
+              Class: 0
+              Position: {x: 0, y: 0, z: 0}
+              IsActive: 1
+              UnitID: 0
+              UnitTypeID: 0
+              ComponentMovement:
+                localWay: []
+                currentDirection: {x: 0, y: 0, z: 0}
+                currentDistance: 1
+              ComponentAttacking:
+                CurrentTarget:
+                  UnitName: Unnamed unit
+                  Class: 0
+                  Position: {x: 0, y: 0, z: 0}
+                  IsActive: 1
+                  UnitID: 0
+                  UnitTypeID: 0
+                  ComponentMovement:
+                    localWay: []
+                    currentDirection: {x: 0, y: 0, z: 0}
+                    currentDistance: 1
+                  ComponentAttacking:
+                    CurrentTarget:
+                      UnitName: Unnamed unit
+                      Class: 0
+                      Position: {x: 0, y: 0, z: 0}
+                      IsActive: 1
+                      UnitID: 0
+                      UnitTypeID: 0
+                      ComponentMovement:
+                        currentDirection: {x: 0, y: 0, z: 0}
+                        currentDistance: 1
+                      ComponentTraining:
+                        TrainingSpeed: 1
+                        unitSpawningOffset: {x: 1, y: 0, z: 1}
+                        CurrentTrainingTimer: 0
+                      MoveSpeed: 3
+                      Damage: 0
+                      AttackRange: 2
+                      AttackInterval: 1.5
+                      MaxHP: 100
+                      RegenerationRate: 1
+                      AbleToMove: 1
+                      AbleToAttack: 1
+                      AbleToTrainUnits: 1
+                      TimeNeededToTrainThisUnit: 10
+                      ResourceCostToTrain: []
+                  ComponentTraining:
+                    TrainingSpeed: 1
+                    AllowedUnitIDsToTrain: 
+                    unitSpawningOffset: {x: 1, y: 0, z: 1}
+                    CurrentTrainingTimer: 0
+                  MoveSpeed: 3
+                  Damage: 0
+                  AttackRange: 2
+                  AttackInterval: 1.5
+                  MaxHP: 100
+                  RegenerationRate: 1
+                  AbleToMove: 1
+                  AbleToAttack: 1
+                  AbleToTrainUnits: 1
+                  TimeNeededToTrainThisUnit: 10
+                  ResourceCostToTrain: []
+              ComponentTraining:
+                TrainingSpeed: 1
+                AllowedUnitIDsToTrain: 
+                unitSpawningOffset: {x: 1, y: 0, z: 1}
+                CurrentTrainingTimer: 0
+              MoveSpeed: 3
+              Damage: 0
+              AttackRange: 2
+              AttackInterval: 1.5
+              MaxHP: 100
+              RegenerationRate: 1
+              AbleToMove: 1
+              AbleToAttack: 1
+              AbleToTrainUnits: 1
+              TimeNeededToTrainThisUnit: 10
+              ResourceCostToTrain: []
+          ComponentTraining:
+            TrainingSpeed: 1
+            AllowedUnitIDsToTrain: 
+            unitSpawningOffset: {x: 1, y: 0, z: 1}
+            CurrentTrainingTimer: 0
+          MoveSpeed: 3
+          Damage: 0
+          AttackRange: 2
+          AttackInterval: 1.5
+          MaxHP: 100
+          RegenerationRate: 1
+          AbleToMove: 1
+          AbleToAttack: 1
+          AbleToTrainUnits: 1
+          TimeNeededToTrainThisUnit: 10
+          ResourceCostToTrain: []
+      ComponentTraining:
+        TrainingSpeed: 1
+        AllowedUnitIDsToTrain: 
+        unitSpawningOffset: {x: 1, y: 0, z: 1}
+        CurrentTrainingTimer: 0
+      MoveSpeed: 3
+      Damage: 0
+      AttackRange: 2
+      AttackInterval: 1.5
+      MaxHP: 100
+      RegenerationRate: 1
+      AbleToMove: 1
+      AbleToAttack: 1
+      AbleToTrainUnits: 1
+      TimeNeededToTrainThisUnit: 10
+      ResourceCostToTrain: []
+  ComponentTraining:
     TrainingSpeed: 1
-    AllowedUnitIDsToTrain: 
+    AllowedUnitIDsToTrain: 0100
     unitSpawningOffset: {x: 1, y: 0, z: 1}
     CurrentTrainingTimer: 0

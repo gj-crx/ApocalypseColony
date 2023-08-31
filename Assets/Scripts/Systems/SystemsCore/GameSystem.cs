@@ -12,7 +12,7 @@ namespace Systems
     public abstract class GameSystem
     {
         public bool IsActive { set { isActive = value; } }
-        public bool DebugLoggingActive = true;
+        public bool DebugLoggingActive = false;
 
         public delegate void UnitOperation(Unit operetaedUnit);
         public UnitOperation OnUnitOperated;
@@ -50,10 +50,6 @@ namespace Systems
                 }
                 catch(Exception exception)
                 {
-                    Debug.Log(dataBase == null);
-                    Debug.Log("allah " + (dataBase.Units.ToArray() == null).ToString());
-                    Debug.Log(GetNextUnitOfDataBaseToOperate(0, dataBase.Units.ToArray()));
-                    Debug.Log(dataBase.Units.ToArray().Length);
                     Debug.LogError("System iteraction cycle failed " + OnUnitOperated.Method.Name + exception);  
                 }
                 await Task.Delay(customTimeIntervalInMiliseconds);
