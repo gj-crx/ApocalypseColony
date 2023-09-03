@@ -20,6 +20,7 @@ namespace Units
         //NetInfo
         [HideInInspector] public int UnitID = 0;
         public short UnitTypeID = 0;
+        public short FactionID = 0;
 
         //Optional unit components
         public UnitMovementComponent ComponentMovement = null;

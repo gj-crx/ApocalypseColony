@@ -45,7 +45,6 @@ public class LocalServerStartingSystem : NetworkBehaviour
 
         yield return new WaitForSeconds(1.0f);
 
-        Debug.Log(Player.LocalPlayerObject);
         ((PlayerOperatingSystem)newSystemsManager.GetSystem(typeof(PlayerOperatingSystem))).AddPlayer(Player.LocalPlayerObject, newGame);
         GamesOfThisServer.Add(newGame);
 

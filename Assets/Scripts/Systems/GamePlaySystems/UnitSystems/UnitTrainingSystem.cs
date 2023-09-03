@@ -29,7 +29,7 @@ namespace Systems
                 if (trainingUnit.ComponentTraining.CurrentTrainingTimer > UnitTypesStorage.UnitTypes[trainingUnit.ComponentTraining.UnitTrainingQueue.Peek()].TimeNeededToTrainThisUnit)
                 { //Enough time passed to train current unit
                     unitModifying.SpawnNewUnit(trainingUnit.ComponentTraining.UnitTrainingQueue.Dequeue(),
-                        trainingUnit.Position + trainingUnit.ComponentTraining.UnitSpawningOffset);
+                        trainingUnit.Position + trainingUnit.ComponentTraining.UnitSpawningOffset, trainingUnit.FactionID);
 
                     trainingUnit.ComponentTraining.CurrentTrainingTimer = 0;
                 }

@@ -7,6 +7,6 @@ namespace Systems.Installers
 {
     public interface IPlayerControllerInstaller
     {
-        void Resolve(GameSystemsManager systemsManager);
+        void Resolve(GameSystemsManager systemsManager, Player player);
     }
 }

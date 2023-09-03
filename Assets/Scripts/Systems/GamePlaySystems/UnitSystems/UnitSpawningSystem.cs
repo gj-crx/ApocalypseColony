@@ -4,7 +4,9 @@ using System.Threading.Tasks;
 using UnityEngine;
 
 using Units;
+using Factions;
 using Zenject;
+using System;
 
 namespace Systems
 {
@@ -13,7 +15,7 @@ namespace Systems
 
         public UnitSpawningSystem(GameSystemsManager systemsManager) : base(systemsManager) => Resolve(systemsManager);
 
-        public Unit SpawnNewUnit(short referenceUnitTypeID, Vector3 position)
+        public Unit SpawnNewUnit(short referenceUnitTypeID, Vector3 position, int factionID)
         {
             try
             {
@@ -22,11 +24,15 @@ namespace Systems
                 newUnit.UnitID = dataBase.GetIndexOfStoredEntity(newUnit);
                 newUnit.Position = position;
 
+                Faction unitFaction = dataBase.GetEntity(factionID, typeof(Faction)) as Faction;
+
+                if (newUnit.Class == Unit.UnitClassification.RegularBuilding || newUnit.Class == Unit.UnitClassification.Townhall) unitFaction.Buildings.Add(newUnit);
+
                 return newUnit;
             }
-            catch
+            catch(Exception error)
             {
-                Debug.LogError("Unit spawning failed!");
+                Debug.LogError("Unit spawning failed! " + error);
                 return null;
             }
         }

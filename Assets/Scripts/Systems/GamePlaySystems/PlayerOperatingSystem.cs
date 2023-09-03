@@ -30,7 +30,7 @@ namespace Systems
             playerToAdd.ConnectedGame = game;
             playerToAdd.PlayerID = playerToAdd.OwnerClientId;
 
-            playerToAdd.gameObject.GetComponent<IPlayerControllerInstaller>().Resolve(systemsManager);
+            playerToAdd.gameObject.GetComponent<IPlayerControllerInstaller>().Resolve(systemsManager, playerToAdd);
 
             //updating rpc params
             game.ConnectedClientsParams = new ClientRpcParams();
@@ -39,7 +39,6 @@ namespace Systems
                 TargetClientIds = new ulong[] { playerToAdd.PlayerID },
             };
 
-            Debug.Log(factionOperator);
             playerToAdd.PlayerGameplayObjectID = factionOperator.SpawnNewFaction(UnitTypesStorage.GetUnitByClass(Unit.UnitClassification.Townhall).UnitTypeID,
                 new Vector3(UnityEngine.Random.Range(-50, 50), 1, UnityEngine.Random.Range(-50, 50)), game, playerToAdd).FactionID;
         }

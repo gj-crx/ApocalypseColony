@@ -57,6 +57,7 @@ namespace Systems
             return null;
         }
         public GameDataBase GetDataBase() => (GameDataBase)associatedGame.DataBase;
+        public Game GetGame() => associatedGame;
 
         private void ActivateDebugLogging()
         {

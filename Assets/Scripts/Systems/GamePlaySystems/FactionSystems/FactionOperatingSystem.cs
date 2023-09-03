@@ -6,6 +6,7 @@ using UnityEngine;
 using Factions;
 using Units;
 using Zenject;
+using System;
 
 namespace Systems
 {
@@ -18,15 +19,32 @@ namespace Systems
         {
             base.Resolve(systemsManager);
             unitModifying = (UnitSpawningSystem)systemsManager.GetSystem(typeof(UnitSpawningSystem));
-        }
 
+            SpawnNewAbstractFaction(systemsManager.GetGame());
+        }
         public Faction SpawnNewFaction(short townhallUnitTypeID, Vector3 townhallPosition, Game gameToCreateIn, Player controllingPlayer = null)
         {
-            Unit townHall = unitModifying.SpawnNewUnit(townhallUnitTypeID, townhallPosition);
+            try
+            {
+                Faction newFaction = new Faction(true) { ControllingPlayerID = controllingPlayer.OwnerClientId, AssociatedGame = gameToCreateIn };
+                gameToCreateIn.DataBase.AddEntityToDataBase(newFaction);
+                newFaction.FactionID = (short)gameToCreateIn.DataBase.GetIndexOfStoredEntity(newFaction);
 
-            Faction newFaction = new Faction(true) { ControllingPlayerID = controllingPlayer.OwnerClientId, AssociatedGame = gameToCreateIn };
-            newFaction.Buildings.Add(townHall);
+                Unit townHall = unitModifying.SpawnNewUnit(townhallUnitTypeID, townhallPosition, newFaction.FactionID);
 
+                if (controllingPlayer != null) controllingPlayer.PlayerGameplayObjectID = newFaction.FactionID;
+
+                return newFaction;
+            }
+            catch(Exception error)
+            {
+                Debug.Log("Faction spawning failed! " + error);
+                return null;
+            }
+        }
+        public Faction SpawnNewAbstractFaction(Game gameToCreateIn)
+        {
+            Faction newFaction = new Faction(true) { ControllingPlayerID = 0, AssociatedGame = gameToCreateIn };
             gameToCreateIn.DataBase.AddEntityToDataBase(newFaction);
 
             newFaction.FactionID = (short)gameToCreateIn.DataBase.GetIndexOfStoredEntity(newFaction);

@@ -12,17 +12,19 @@ using Systems.Installers;
 
 public class PlayerInput : NetworkBehaviour, IPlayerControllerInstaller
 {
-
     //SERVER SIDE ONLY VARIABLES
+     Player player;
      private IDataBase dataBase;
      private UnitTrainingSystem training;
      private UnitAISystem unitAI;
      private UnitSpawningSystem unitModifying;
 
 
-    public void Resolve(GameSystemsManager systemsManager)
+    public void Resolve(GameSystemsManager systemsManager, Player player)
     {
+        this.player = player;
         dataBase = systemsManager.GetDataBase();
+
         training = (UnitTrainingSystem)systemsManager.GetSystem(typeof(UnitTrainingSystem));
         unitAI = (UnitAISystem)systemsManager.GetSystem(typeof(UnitAISystem));
         unitModifying = (UnitSpawningSystem)systemsManager.GetSystem(typeof(UnitSpawningSystem));
@@ -31,7 +33,7 @@ public class PlayerInput : NetworkBehaviour, IPlayerControllerInstaller
     [ServerRpc]
     public void TestForceSpawnUnitServerRpc()
     {
-        unitModifying.SpawnNewUnit(0, Vector3.zero);
+        unitModifying.SpawnNewUnit(0, Vector3.zero, player.PlayerGameplayObjectID);
     }
 
     [ServerRpc]
