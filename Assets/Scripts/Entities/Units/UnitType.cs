@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+using BodyTypes;
+
 namespace Units
 {
     [CreateAssetMenu(fileName = "UnitType", menuName = "ScriptableObjects/UnitType", order = 1)]
@@ -26,7 +28,10 @@ namespace Units
         public float TimeNeededToTrainThisUnit = 10;
         public List<float> ResourceCostToTrain = new List<float>(5);
 
-        public Pathfinding.BodyType BodyType;
+        //Collisions
+        public BodyType BodyType;
+        public float CollisionRadius = 1.0f;
+        public bool IsExpellableByCollision = true;
 
         //Component for redacting stats
         public UnitMovementComponent ComponentMovement = null;

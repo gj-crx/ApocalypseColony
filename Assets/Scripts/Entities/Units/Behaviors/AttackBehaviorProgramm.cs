@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using UnityEngine;
 
 using Units;
-using Pathfinding;
 
 /// <summary>
 /// Implement attack-move orders

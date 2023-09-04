@@ -4,7 +4,7 @@ using UnityEngine;
 
 using Unity.Netcode;
 using Zenject;
-using Pathfinding;
+using BodyTypes;
 
 namespace Units
 {
@@ -35,11 +35,15 @@ namespace Units
         public float MaxHP = 100;
         public float RegenerationRate = 1;
 
+        //Collisions
+        public IBodyType Body;
+        public float CollisionRadius = 1.0f;
+        public bool IsExpellableByCollision = true;
+
         //Possibilities
         public bool AbleToMove = true;
         public bool AbleToAttack = true;
         public bool AbleToTrainUnits = true;
-        public IBodyType Body;
 
         public float TimeNeededToTrainThisUnit = 10;
         public List<float> ResourceCostToTrain = new List<float>(5);

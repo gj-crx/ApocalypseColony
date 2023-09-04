@@ -2,8 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-using Pathfinding;
 using Units;
+using BodyTypes;
 
 namespace Systems.Pathfinding
 {

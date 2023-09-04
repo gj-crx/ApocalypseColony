@@ -47,6 +47,7 @@ namespace Systems
                 Class = unitType.Class,
                 Position = Vector3.zero,
                 IsActive = true,
+
                 //general stats
                 MoveSpeed = unitType.MoveSpeed,
                 Damage = unitType.Damage,
@@ -54,10 +55,15 @@ namespace Systems
                 AttackInterval = unitType.AttackInterval,
                 MaxHP = unitType.MaxHP,
                 RegenerationRate = unitType.RegenerationRate,
+
                 //specialized stats
-                Body = BodyTypes.Body1X.GetBodyType(unitType.BodyType),
                 TimeNeededToTrainThisUnit = unitType.TimeNeededToTrainThisUnit,
                 ResourceCostToTrain = unitType.ResourceCostToTrain,
+
+                //Collisions
+                Body = BodyTypes.Body1X.GetBodyType(unitType.BodyType),
+                CollisionRadius = unitType.CollisionRadius,
+                IsExpellableByCollision = unitType.IsExpellableByCollision,
 
                 //possibilities 
                 AbleToAttack = unitType.AbleToAttack,                

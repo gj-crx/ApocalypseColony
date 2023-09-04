@@ -11,6 +11,9 @@ using Unity.Netcode;
 [System.Serializable]
 public class GameDataBase : IDataBase
 {
+    public int MapRadius = 100;
+    public int ShardsCount = 4;
+
     public List<Unit> Units = new List<Unit>();
 
     public List<Faction> Factions = new List<Faction>();
@@ -18,15 +21,33 @@ public class GameDataBase : IDataBase
     public List<ISynchronizableObject> synchronizableObjects = new List<ISynchronizableObject>();
 
     public bool IsKilled => isKilled;
-
     private bool isKilled = false;
 
-    public string databaseName = "nnn";
+    private ShardOfDataBase[,] shards;
+    private byte shardMapRadius = 0;
 
     [Inject]
     public GameDataBase()
     {
-        databaseName += UnityEngine.Random.Range(-1000, 1000);
+        //Creating shards
+        shardMapRadius = (byte)Mathf.Sqrt(ShardsCount);
+        shards = new ShardOfDataBase[shardMapRadius, shardMapRadius];
+        for (sbyte y = 0; y < shardMapRadius; y++)
+            for (sbyte x = 0; x < shardMapRadius; x++)
+            {
+                shards[x, y] = new ShardOfDataBase(this);
+            }
+    }
+    private void SpreadUnitsByShards()
+    {
+        foreach (var unit in Units)
+        {
+            byte shardX = (byte)(unit.Position.x / shardMapRadius);
+            byte shardY = (byte)(unit.Position.y / shardMapRadius);
+
+            foreach (var shard in shards) shard.Units.Remove(unit);
+            shards[shardX, shardY].Units.Add(unit);
+        }
     }
 
     public void AddEntityToDataBase(object entity)
@@ -40,7 +61,6 @@ public class GameDataBase : IDataBase
         }
 
         if (entity != null && entity is ISynchronizableObject) synchronizableObjects.Add(entity as ISynchronizableObject);
-        Debug.Log("Entity added to database " + databaseName + " total amount " + synchronizableObjects.Count);
     }
     public int GetIndexOfStoredEntity(object entity)
     {
@@ -49,17 +69,6 @@ public class GameDataBase : IDataBase
 
         Debug.LogError("Invalid type!");
         return -1;
-    }
-
-
-    public void Dispose()
-    {
-        Debug.Log("Database disposed");
-      //  foreach (var unit in Units) 
-
-        Units = null;
-        Factions = null;
-        isKilled = true;
     }
 
     public object GetEntity(int storedEntityID, Type typeOfEntity)
@@ -71,6 +80,25 @@ public class GameDataBase : IDataBase
             Debug.LogError("Invalid type!");
             return null;
         }
+    }
+    public Unit GetNearestUnitInShard(Vector3 referencePosition)
+    {
+        ShardOfDataBase shardOfAPosition = shards[(byte)referencePosition.x, (byte)referencePosition.y];
+        float minDistance = 9999;
+        float currentDistance = minDistance;
+        Unit nearestUnitInShard = null;
+
+        foreach (var unitInShard in shardOfAPosition.Units)
+        {
+            currentDistance = Vector3.Distance(referencePosition, unitInShard.Position);
+            if (currentDistance < minDistance)
+            {
+                currentDistance = minDistance;
+                nearestUnitInShard = unitInShard;
+            }
+        }
+
+        return nearestUnitInShard;
     }
     public Type GetTypeOutOfID(IDataBase.EntityTypeID entityTypeID)
     {
@@ -86,6 +114,16 @@ public class GameDataBase : IDataBase
         Debug.LogError("Invalid type!");
         return 0;
     }
-
     public List<ISynchronizableObject> GetSynchronizableObjects() => synchronizableObjects;
+
+    public void Dispose()
+    {
+        Units = null;
+        Factions = null;
+
+        foreach (var shard in shards) shard.Dispose();
+        shards = null;
+
+        isKilled = true;
+    }
 }
