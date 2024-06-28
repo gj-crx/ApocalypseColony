@@ -43,6 +43,7 @@ namespace Systems
             AddNewSystem(new UnitTrainingSystem(this));
             AddNewSystem(new UnitOrderProcessingSystem(this));
             AddNewSystem(new UnitFightingSystem(this));
+            AddNewSystem(new UnitCollisionSystem(this));
 
             ActivateDebugLogging();
             foreach (var system in  gameToInstall.GameSystems) Task.Run(() => system.SystemIterationCycle());

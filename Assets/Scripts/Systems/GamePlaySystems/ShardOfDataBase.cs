@@ -13,7 +13,7 @@ public class ShardOfDataBase
 
 
 
-    private GameDataBase mainDataBase = new GameDataBase();
+    private GameDataBase mainDataBase;
 
 
     public ShardOfDataBase(GameDataBase gameDataBase)

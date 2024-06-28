@@ -24,7 +24,9 @@ public class GameDataBase : IDataBase
     private bool isKilled = false;
 
     private ShardOfDataBase[,] shards;
-    private byte shardMapRadius = 0;
+    private byte shardMapRadius = 4;
+
+    private int shardRadiusInUnits { get { return MapRadius / shardMapRadius; } }
 
     [Inject]
     public GameDataBase()
@@ -81,11 +83,11 @@ public class GameDataBase : IDataBase
             return null;
         }
     }
-    public Unit GetNearestUnitInShard(Vector3 referencePosition)
+    public Unit GetNearestUnitInShard(Vector3 referencePosition, float minDistance = 9999)
     {
-        ShardOfDataBase shardOfAPosition = shards[(byte)referencePosition.x, (byte)referencePosition.y];
-        float minDistance = 9999;
-        float currentDistance = minDistance;
+        Debug.Log((byte)referencePosition.x / shardRadiusInUnits + " " + (byte)referencePosition.y / shardRadiusInUnits);
+        ShardOfDataBase shardOfAPosition = shards[(byte)referencePosition.x / shardRadiusInUnits, (byte)referencePosition.y / shardRadiusInUnits];
+        float currentDistance;
         Unit nearestUnitInShard = null;
 
         foreach (var unitInShard in shardOfAPosition.Units)

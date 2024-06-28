@@ -14,6 +14,7 @@ namespace Systems
         protected override void Resolve(GameSystemsManager systemsManager)
         {
             base.Resolve(systemsManager);
+            OnUnitOperated += OperateCollisions;
         }
 
         private void OperateCollisions(Unit unit)
@@ -21,7 +22,14 @@ namespace Systems
             if (unit.IsExpellableByCollision == false) return;
 
             //Push neirby units away
-            dataBase.GetNearestUnitInShard.
+            CollisionPush(dataBase.GetNearestUnitInShard(unit.Position, unit.CollisionRadius), unit.Position, 1);
+        }
+        private void CollisionPush(Unit unitToPush, Vector3 pushFrom, float pushingForce)
+        {
+            if (unitToPush == null) return;
+
+            Vector3 pushingDirection = (pushFrom - unitToPush.Position).normalized;
+            unitToPush.Position += pushingDirection * pushingForce;
         }
     }
 }
